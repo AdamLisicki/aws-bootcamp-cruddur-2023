@@ -7,5 +7,6 @@
 
 ### Logical Diagram
 
-![image](https://user-images.githubusercontent.com/96197101/219811693-268b4c05-cadd-479c-8b11-5083cede2578.png)
+![image](https://user-images.githubusercontent.com/96197101/219813239-d4b6d833-ada2-4f24-ac80-3e09f59f46f6.png)
+
 
