@@ -45,12 +45,18 @@ All budgets that I've created.
 
 ## Setting up Root account and Admin user
 
-### I set up MFA for Root account
+I set up MFA for Root account
 
 ![image](https://user-images.githubusercontent.com/96197101/219855018-9ca8a4ca-15b0-4099-b8b8-7261a7b48ad5.png)
 
+I created Admin user and set up MFA and Access key.
+
+![image](https://user-images.githubusercontent.com/96197101/219856443-5e4db848-e470-4b4d-896f-be53576d1690.png)
 
 
+## Use Cloud Shell
+
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html
 
 
 
