@@ -4,10 +4,13 @@
 
 ![image](https://user-images.githubusercontent.com/96197101/219812850-a0025123-3fcc-4fbb-8591-33e1d5280c1b.png)
 
+Link to the diagram: https://lucid.app/lucidchart/fae79b27-64cf-404f-9c96-ec49d214e5d5/edit?invitationId=inv_9cd220a3-484c-4f46-a1e5-dda580e1001d
 
 ## Logical Diagram
 
 ![image](https://user-images.githubusercontent.com/96197101/219813239-d4b6d833-ada2-4f24-ac80-3e09f59f46f6.png)
+
+Link to the diagram: https://lucid.app/lucidchart/a3aa340a-60ac-4e9d-96c2-b42da7d4ca67/edit?invitationId=inv_85c47ff5-e43c-4e3f-a433-dfc5a344f928
 
 ## Create a Budget
 
