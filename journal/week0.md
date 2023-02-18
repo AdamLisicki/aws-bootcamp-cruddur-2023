@@ -148,6 +148,10 @@ There is two ways to create Gitpod environment varibles:
   
   ![image](https://user-images.githubusercontent.com/96197101/219866062-bcbf6514-f027-4c4f-b5e8-b2e2071bc627.png)
 
+## Open a support ticket and request a service limit
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219879084-b336f413-051e-4ac4-b0ac-5edc1e81c763.png)
 
+  
   
 
