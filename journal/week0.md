@@ -53,7 +53,16 @@ All budgets that I've created.
 
 ![image](https://user-images.githubusercontent.com/96197101/219853880-8f1113f9-cab7-46a6-b14c-25e310081942.png)
 
-## Create an Admin User
+## Setting up Root account and Admin user
+
+### I set up MFA for Root account
+
+![image](https://user-images.githubusercontent.com/96197101/219855018-9ca8a4ca-15b0-4099-b8b8-7261a7b48ad5.png)
+
+
+
+
+
 
 
 
