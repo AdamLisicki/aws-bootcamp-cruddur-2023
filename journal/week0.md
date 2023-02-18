@@ -105,9 +105,46 @@ There is two ways to create Gitpod environment varibles:
   
   ![image](https://user-images.githubusercontent.com/96197101/219864585-003044b9-3061-46f6-8b0d-5842ae4b8f54.png)
 
+ ## Create a Budget from CLI
+  
+  https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219865265-fd1c646f-4f1a-4c54-ae45-b0b5d130304e.png)
+
+  ![image](https://user-images.githubusercontent.com/96197101/219865302-62f17aad-1eef-4e6d-a38d-a32e6e868be9.png)
+
  ## Create a Billing Alarm
   
  ### Create SNS Topic
   
+  <code>aws sns create-topic --name billing-alarm</code>
   
+  ![image](https://user-images.githubusercontent.com/96197101/219865471-19d1600b-7897-44d3-b163-8c6aca056e6d.png)
+
+  <code>aws sns subscribe \
+    --topic-arn TopicARN \
+    --protocol email \
+    --notification-endpoint your@email.com</code>
   
+  ![image](https://user-images.githubusercontent.com/96197101/219865500-c18c5ee6-b01d-4441-86f3-84fdab33a8ea.png)
+  
+  I confirmed subscription.
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219865562-c50c2c29-1782-4c9d-9d96-acfdc2a09e26.png)
+  
+  ### Create Alarm
+  
+  I created alarm_config.json file and paste JSON that is on page https://aws.amazon.com/premiumsupport/knowledge-center/cloudwatch-estimatedcharges-alarm/ and change AlarmActions section to my arn number that I created in previous step. 
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219865849-87e62f3c-6432-4ff6-9c82-2eae02eec519.png)
+
+  And then I run this command.
+  
+  <code>aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json</code>
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219866006-4788a286-3fac-4049-ae04-706c3ca7b11b.png)
+  
+ 
+
+  
+
