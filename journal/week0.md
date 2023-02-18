@@ -56,7 +56,7 @@ I created Admin user and set up MFA and Access key.
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html
 
-I used command "aws sts get-caller-identity" to return details about the IAM user or role whose credentials are used to call the operation. 
+I used command <code>aws sts get-caller-identity</code> to return details about the IAM user or role whose credentials are used to call the operation. 
 
 ![image](https://user-images.githubusercontent.com/96197101/219856557-2805bfc6-0fc0-4b6e-bc9d-39e91b24aaa9.png)
 
@@ -65,6 +65,8 @@ I used command "aws sts get-caller-identity" to return details about the IAM use
 
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
+Commands that I used to install AWS CLI in gitpod.
+
 <code>cd /workspace/
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
@@ -72,10 +74,15 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 </code>
 
 
+After executing above commands, AWS CLI is now intalled in my gitpod environment.
 
 ![image](https://user-images.githubusercontent.com/96197101/219857307-ad015e4f-1565-4fc0-80f2-94bd63563a12.png)
 
-  
+I set up environment variables AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION. 
+
+Command <code>aws sts get-caller-identity</code> shows info about my admin user.
+
+![image](https://user-images.githubusercontent.com/96197101/219857638-7d0fb529-7f12-42e9-807f-83397329f410.png)
 
 
 
