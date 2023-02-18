@@ -144,7 +144,10 @@ There is two ways to create Gitpod environment varibles:
   
   ![image](https://user-images.githubusercontent.com/96197101/219866006-4788a286-3fac-4049-ae04-706c3ca7b11b.png)
   
- 
+ Created alarm in AWS Portal.
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219866062-bcbf6514-f027-4c4f-b5e8-b2e2071bc627.png)
+
 
   
 
