@@ -58,6 +58,9 @@ I created Admin user and set up MFA and Access key.
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html
 
+I used command "aws get-caller-identity" to return details about the IAM user or role whose credentials are used to call the operation. 
+
+![image](https://user-images.githubusercontent.com/96197101/219856557-2805bfc6-0fc0-4b6e-bc9d-39e91b24aaa9.png)
 
 
 
