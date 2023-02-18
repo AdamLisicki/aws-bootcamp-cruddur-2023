@@ -23,23 +23,13 @@ I also created a custom budget that notifies me when my credit spend will be ove
 
 I chose to create a custom cost budget.
 
-![image](https://user-images.githubusercontent.com/96197101/219852983-e3759552-9adc-457a-98bb-aa8fea80475f.png)
-
 I typed budget name and budget amount. Also I set charge type to "Credits".
 
 ![image](https://user-images.githubusercontent.com/96197101/219853007-b19d4018-c94d-40a1-8cbd-ab65123d65fd.png)
 
 I configured alarm that notifies me when my credits spend will be at 80%.
 
-![image](https://user-images.githubusercontent.com/96197101/219853018-c4960e3e-84bf-4ba1-a533-3d02025e5023.png)
-
 ![image](https://user-images.githubusercontent.com/96197101/219853078-6ddb9b51-b8f6-4f80-9aed-50f06cbfe002.png)
-
-Summary of budget creation
-
-![image](https://user-images.githubusercontent.com/96197101/219853084-f13f1a67-4893-4528-b3a7-1b7776fcfdc2.png)
-
-![image](https://user-images.githubusercontent.com/96197101/219853097-63199e38-218c-4822-89fb-fc9bfd5e7840.png)
 
 
 ### Zero Spend Budget
