@@ -67,7 +67,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
 Commands that I used to install AWS CLI in gitpod.
 
-<code>cd /workspace/
+<code>cd /workspace
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
   sudo ./aws/install
@@ -84,8 +84,16 @@ Command <code>aws sts get-caller-identity</code> shows info about my admin user.
 
 ![image](https://user-images.githubusercontent.com/96197101/219857638-7d0fb529-7f12-42e9-807f-83397329f410.png)
 
+I edited .gitpod file to make sure that when I start gitpod environment AWS CLI will be always installed. 
 
+https://www.gitpod.io/docs/introduction/learn-gitpod/gitpod-yaml
 
+![image](https://user-images.githubusercontent.com/96197101/219858134-9b3c37e2-0b95-4bf8-ab18-a6f365aa57b7.png)
 
-  
+I've also create environment variables for Gitpod AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION to not assign the every time.
 
+![image](https://user-images.githubusercontent.com/96197101/219863852-b03c0ffb-eaf5-4b08-ae99-4126316005ab.png)
+
+There is two ways to create Gitpod environment varibles: 
+  - using Gitpod portal
+  - typing <code> gp env <VAR_NAME>="<VAR_VALUE>"</code>
