@@ -155,6 +155,13 @@ There is two ways to create Gitpod environment varibles:
   
   ![image](https://user-images.githubusercontent.com/96197101/219879084-b336f413-051e-4ac4-b0ac-5edc1e81c763.png)
 
+  ## Use EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue.
   
+  Created SNS and configured with address email.
   
+  ![image](https://user-images.githubusercontent.com/96197101/219890089-6164baef-3a19-4b56-86fb-4a0868adac72.png)
+  
+  Created AWS EventBridge Rule to monitor all resources.
+
+  ![image](https://user-images.githubusercontent.com/96197101/219890803-38ab74d9-b8d4-4f60-a812-24730f67e2d7.png)
 
