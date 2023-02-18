@@ -21,8 +21,6 @@ I created a budget that notifies me when my monthy spend will be over 85$ (templ
 
 I also created a custom budget that notifies me when my credit spend will be over 0.8$ and 1$.
 
-I chose to create a custom cost budget.
-
 I typed budget name and budget amount. Also I set charge type to "Credits".
 
 ![image](https://user-images.githubusercontent.com/96197101/219853007-b19d4018-c94d-40a1-8cbd-ab65123d65fd.png)
@@ -58,12 +56,26 @@ I created Admin user and set up MFA and Access key.
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html
 
-I used command "aws get-caller-identity" to return details about the IAM user or role whose credentials are used to call the operation. 
+I used command "aws sts get-caller-identity" to return details about the IAM user or role whose credentials are used to call the operation. 
 
 ![image](https://user-images.githubusercontent.com/96197101/219856557-2805bfc6-0fc0-4b6e-bc9d-39e91b24aaa9.png)
 
 
+## Gitpod configuration (AWS Credentials, AWS CLI)
 
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+<code>cd /workspace/
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  unzip awscliv2.zip
+  sudo ./aws/install
+</code>
+
+
+
+![image](https://user-images.githubusercontent.com/96197101/219857307-ad015e4f-1565-4fc0-80f2-94bd63563a12.png)
+
+  
 
 
 
