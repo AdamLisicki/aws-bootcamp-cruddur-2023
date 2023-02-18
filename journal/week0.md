@@ -97,3 +97,17 @@ I've also create environment variables for Gitpod AWS_ACCESS_KEY_ID, AWS_SECRET_
 There is two ways to create Gitpod environment varibles: 
   - using Gitpod portal
   - typing <code> gp env <VAR_NAME>="<VAR_VALUE>"</code>
+
+  
+ ## Enable Billing
+  
+  I enabled Billing Alerts to revice alerts.
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219864585-003044b9-3061-46f6-8b0d-5842ae4b8f54.png)
+
+ ## Create a Billing Alarm
+  
+ ### Create SNS Topic
+  
+  
+  
