@@ -13,7 +13,7 @@
 
 ### Monthly Cost Budget 
 
-I created a budget that notifies me when my monthy spend will be over 85$ and over 100$. 
+I created a budget that notifies me when my monthy spend will be over 85$ (template has default alarm treshold set to 85% of my budget) and over 100$. 
 
 ![image](https://user-images.githubusercontent.com/96197101/219852691-a4239606-7afd-47ee-aec9-9b0f2332c68a.png)
 
