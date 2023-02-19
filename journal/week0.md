@@ -165,3 +165,8 @@ There is two ways to create Gitpod environment varibles:
 
   ![image](https://user-images.githubusercontent.com/96197101/219890803-38ab74d9-b8d4-4f60-a812-24730f67e2d7.png)
 
+## Diagram of CI/CD Piepline
+  
+  ![image](https://user-images.githubusercontent.com/96197101/219947712-29a63ed0-c0b2-4b5f-9326-de9e078b17b4.png)
+  
+  Link to Lucid: https://lucid.app/lucidchart/58d6a152-dd58-4112-8178-5ddfd65b3302/edit?viewport_loc=-76%2C-260%2C3072%2C1501%2C0_0&invitationId=inv_c1e3f5ac-98bd-4623-8dba-76e8a2ef5d39
