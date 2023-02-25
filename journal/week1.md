@@ -72,3 +72,49 @@ CMD ["npm", "start"]
 
 <code> CMD ["npm", "start"] </code> - run npm start
 
+## docker compose file
+
+
+```
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+    
+```
+
+In Gitpod right click on docker compose file and select "Compose Up"
+
+![image](https://user-images.githubusercontent.com/96197101/221364863-8529390f-1587-43ec-b078-a220aff4f0f5.png)
+
+Frontend and backend are running.
+
+![image](https://user-images.githubusercontent.com/96197101/221364920-c4d4d99b-c11d-4f5d-ba2b-a2ffd201bc68.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221364946-0370cb79-69f5-49c2-82e5-b702f467ad12.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221364993-c9ad268e-c840-4b23-9abc-4cd16afc9479.png)
+
+
