@@ -241,7 +241,28 @@ export default function NotificationsFeedPage() {
 
 ## Run DynamoDB Local Container and ensure it works
 
+DynamDB
+
 ![image](https://user-images.githubusercontent.com/96197101/221435402-0a417da9-2553-40ec-a052-ab665129a178.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438015-a547d98f-8f22-4585-b93e-632622c49cca.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438047-91a49d2c-fb0f-4097-94e5-4587073343fb.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438067-2482bf9a-ba4d-4d21-a0ec-dc8e5c9ae910.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438094-e40710e1-462f-4da3-b889-2388e1f7bf38.png)
+
+PostgesSQL
+
+![image](https://user-images.githubusercontent.com/96197101/221438145-88704cc3-a9ec-4166-b0fb-5a5441a01027.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438156-dce2bddd-3b0a-43da-915a-3d3308e33b11.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221438357-d3ef2ce0-affd-4d16-95ca-c6e1ca5ce521.png)
+
+
+
 
 
 
