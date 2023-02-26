@@ -120,18 +120,33 @@ Frontend and backend are running.
 
 ## Document the Notification Endpoint for the OpenAI Document
 
+Added entry to openapi-3.0.yml file.
+
 ![image](https://user-images.githubusercontent.com/96197101/221408142-7f33ef4f-cad7-4d0a-82bf-c0b1a21c85e4.png)
 
 
 ## Write a Flask Backend Endpoint for Notifications
 
-![image](https://user-images.githubusercontent.com/96197101/221411348-edc5f4d9-0164-4198-9af2-f30898b48b73.png)
-
-![image](https://user-images.githubusercontent.com/96197101/221411366-ef02b79c-9af9-4be7-b0a5-e11319d069a2.png)
+Added notifications_activities import to app.py file.
 
 ![image](https://user-images.githubusercontent.com/96197101/221411384-3bc5733c-91c3-4e5b-ae97-408f1b61e99c.png)
 
+Added endpoint to app.py file.
+
+![image](https://user-images.githubusercontent.com/96197101/221411348-edc5f4d9-0164-4198-9af2-f30898b48b73.png)
+
+Write some data to notifications_activities.py file. 
+
+![image](https://user-images.githubusercontent.com/96197101/221411366-ef02b79c-9af9-4be7-b0a5-e11319d069a2.png)
+
+Called /api/activities/noftifications api shows data that was added to notifications_activities.py file.
+
+![image](https://user-images.githubusercontent.com/96197101/221425703-ab2c155e-1621-4463-9434-d2542f9bb9fb.png)
+
+
+
 ## Write a React Page for Notifications
+
 
 ![image](https://user-images.githubusercontent.com/96197101/221411466-86ca9de9-ce9b-4902-a3c4-3215fd824d56.png)
 
