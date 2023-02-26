@@ -118,3 +118,111 @@ Frontend and backend are running.
 ![image](https://user-images.githubusercontent.com/96197101/221364993-c9ad268e-c840-4b23-9abc-4cd16afc9479.png)
 
 
+## Document the Notification Endpoint for the OpenAI Document
+
+![image](https://user-images.githubusercontent.com/96197101/221408142-7f33ef4f-cad7-4d0a-82bf-c0b1a21c85e4.png)
+
+
+## Write a Flask Backend Endpoint for Notifications
+
+![image](https://user-images.githubusercontent.com/96197101/221411348-edc5f4d9-0164-4198-9af2-f30898b48b73.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221411366-ef02b79c-9af9-4be7-b0a5-e11319d069a2.png)
+
+![image](https://user-images.githubusercontent.com/96197101/221411384-3bc5733c-91c3-4e5b-ae97-408f1b61e99c.png)
+
+## Write a React Page for Notifications
+
+![image](https://user-images.githubusercontent.com/96197101/221411466-86ca9de9-ce9b-4902-a3c4-3215fd824d56.png)
+
+
+```
+import './NotificationsFeedPage.css';
+import React from "react";
+
+import DesktopNavigation  from '../components/DesktopNavigation';
+import DesktopSidebar     from '../components/DesktopSidebar';
+import ActivityFeed from '../components/ActivityFeed';
+import ActivityForm from '../components/ActivityForm';
+import ReplyForm from '../components/ReplyForm';
+
+// [TODO] Authenication
+import Cookies from 'js-cookie'
+
+export default function NotificationsFeedPage() {
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
+  const dataFetchedRef = React.useRef(false);
+
+  const loadData = async () => {
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications`
+      const res = await fetch(backend_url, {
+        method: "GET"
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setActivities(resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkAuth = async () => {
+    console.log('checkAuth')
+    // [TODO] Authenication
+    if (Cookies.get('user.logged_in')) {
+      setUser({
+        display_name: Cookies.get('user.name'),
+        handle: Cookies.get('user.username')
+      })
+    }
+  };
+
+  React.useEffect(()=>{
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+
+    loadData();
+    checkAuth();
+  }, [])
+
+  return (
+    <article>
+      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
+      <div className='content'>
+        <ActivityForm  
+          popped={popped}
+          setPopped={setPopped} 
+          setActivities={setActivities} 
+        />
+        <ReplyForm 
+          activity={replyActivity} 
+          popped={poppedReply} 
+          setPopped={setPoppedReply} 
+          setActivities={setActivities} 
+          activities={activities} 
+        />
+        <ActivityFeed 
+          title="Notifications" 
+          setReplyActivity={setReplyActivity} 
+          setPopped={setPoppedReply} 
+          activities={activities} 
+        />
+      </div>
+      <DesktopSidebar user={user} />
+    </article>
+  );
+}
+
+```
+
+
+
