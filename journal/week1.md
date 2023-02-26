@@ -241,7 +241,7 @@ export default function NotificationsFeedPage() {
 
 ## Run DynamoDB Local Container and ensure it works
 
-DynamDB
+DynamoDB
 
 ![image](https://user-images.githubusercontent.com/96197101/221435402-0a417da9-2553-40ec-a052-ab665129a178.png)
 
