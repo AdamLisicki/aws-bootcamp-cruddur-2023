@@ -299,6 +299,31 @@ I've already have Docker on my local PC.
 
 ![image](https://user-images.githubusercontent.com/96197101/221984060-df66ccb8-93bf-4e1b-8f37-6fb8e23ddf66.png)
 
+I cloned git repository to my local computer.
+
+![image](https://user-images.githubusercontent.com/96197101/221988776-039a8fdc-5bd2-40f3-a034-0ff8ba4cc39f.png)
+
+I changed environment variables in the docker compose file to localhost and appropriate port.
+
+![image](https://user-images.githubusercontent.com/96197101/221989074-5f422471-bb2a-412e-89db-7bf461fe8df3.png)
+
+I run <code> npm install </code> in the fronend folder to intstall all dependencies. 
+
+Then I run <code> docker compose up </code>.
+
+![image](https://user-images.githubusercontent.com/96197101/221989827-2163e385-9419-4839-b13d-509173771eff.png)
+
+After a wile containers are up.
+
+![image](https://user-images.githubusercontent.com/96197101/221989963-bc63271a-a280-4b84-b9f9-55b71e953917.png)
+
+When I go to browser and type http://127.0.0.1:3000 
+
+![image](https://user-images.githubusercontent.com/96197101/221990126-094c2f18-d971-424e-95d6-6237d85fcf19.png)
+
+Frontend and backend are working correctly.
+
+
 
 
 
