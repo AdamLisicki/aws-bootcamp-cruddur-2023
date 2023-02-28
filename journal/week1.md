@@ -277,6 +277,32 @@ List all databases to ensure that Postgres container is running.
 
 
 
+## Run the dockerfile CMD as an external script
+
+I created a bash script file and wrote a command to it that runs the flask application.
+
+![image](https://user-images.githubusercontent.com/96197101/221971313-e00542c6-9656-417e-9db3-c3d0301d7e18.png)
+
+Then I modified a Dockerfile for backend-flask to run this script when container is created.
+
+![image](https://user-images.githubusercontent.com/96197101/221971760-c96c94ce-9106-43c8-936d-b798ac357c07.png)
+
+The script is in the same location as Dockerfile, so stage <code> COPY . . </code> copies script to the container.
+
+When I run docker-compose file backend is working correctly.
+
+![image](https://user-images.githubusercontent.com/96197101/221982954-47666e10-c436-45d6-bfc9-1b130010a2fe.png)
+
+## Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
+
+I've already have Docker on my local PC.
+
+![image](https://user-images.githubusercontent.com/96197101/221984060-df66ccb8-93bf-4e1b-8f37-6fb8e23ddf66.png)
+
+
+
+
+
 
 
 
