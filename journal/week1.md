@@ -323,6 +323,32 @@ When I go to browser and type http://127.0.0.1:3000
 
 Frontend and backend are working correctly.
 
+## Use multi-stage building for a Dockerfile build
+
+I implement multi stage in a frontend Dockerfile to reduce image size.
+
+![image](https://user-images.githubusercontent.com/96197101/222524153-9bf68425-1ee8-45dc-a008-ab89df23bb40.png)
+
+Image size after implementing multistage reduced from 1.19GB to 412MB
+
+![image](https://user-images.githubusercontent.com/96197101/222526375-5f1c95cd-7a7c-439a-b1e8-f1b7ae7d4ccb.png)
+
+## Push and tag a image to DockerHub
+
+I created repository in DockerHub.
+
+![image](https://user-images.githubusercontent.com/96197101/222530461-52169fcd-cb4d-4d86-8cb5-7bee52692237.png)
+
+Then I login into Docker, tag an image and push to newly created repository.
+
+![image](https://user-images.githubusercontent.com/96197101/222531527-0cb22710-f174-4e2c-9b72-6195d0234d71.png)
+
+![image](https://user-images.githubusercontent.com/96197101/222531694-c54df7fb-a640-4d34-9150-fa7c5179135a.png)
+
+
+
+
+
 
 
 
