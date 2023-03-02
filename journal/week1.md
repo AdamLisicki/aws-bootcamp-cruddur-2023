@@ -346,6 +346,18 @@ Then I login into Docker, tag an image and push it to newly created repository.
 ![image](https://user-images.githubusercontent.com/96197101/222531694-c54df7fb-a640-4d34-9150-fa7c5179135a.png)
 
 
+## Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
+
+I created EC2 instace and configure Docker on it.
+
+I pulled an image.
+
+![image](https://user-images.githubusercontent.com/96197101/222534487-8d4dc235-8bbb-4702-8559-538153987845.png)
+
+I run container with pulled image and check if it works correctly.
+
+![image](https://user-images.githubusercontent.com/96197101/222534881-de6211df-932d-4e58-97e7-a00bcb9c22ea.png)
+
 
 
 
