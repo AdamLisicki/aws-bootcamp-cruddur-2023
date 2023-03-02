@@ -358,6 +358,15 @@ I run container with pulled image and check if it works correctly.
 
 ![image](https://user-images.githubusercontent.com/96197101/222534881-de6211df-932d-4e58-97e7-a00bcb9c22ea.png)
 
+## Implement a healthcheck in the V3 Docker compose file
+
+Implemented healthcheck for PostgreSQL container.
+
+![image](https://user-images.githubusercontent.com/96197101/222569622-5db37b6e-d8a8-4ca6-a89d-e048ff306ce3.png)
+
+The container passed all tests and health status is "healthy".
+
+![image](https://user-images.githubusercontent.com/96197101/222569741-0a6ac629-3537-455f-bcb2-e3892bd362b4.png)
 
 
 
