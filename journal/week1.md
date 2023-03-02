@@ -339,7 +339,7 @@ I created repository in DockerHub.
 
 ![image](https://user-images.githubusercontent.com/96197101/222530461-52169fcd-cb4d-4d86-8cb5-7bee52692237.png)
 
-Then I login into Docker, tag an image and push to newly created repository.
+Then I login into Docker, tag an image and push it to newly created repository.
 
 ![image](https://user-images.githubusercontent.com/96197101/222531527-0cb22710-f174-4e2c-9b72-6195d0234d71.png)
 
