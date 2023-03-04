@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 // [TODO] Authenication
 import Cookies from 'js-cookie'
 
+import { Auth } from 'aws-amplify';
+
 export default function SignupPage() {
 
   // Username is Eamil
@@ -16,17 +18,25 @@ export default function SignupPage() {
   const [errors, setErrors] = React.useState('');
 
   const onsubmit = async (event) => {
+    setCognitoErrors('')
     event.preventDefault();
-    console.log('SignupPage.onsubmit')
-    // [TODO] Authenication
-    Cookies.set('user.name', name)
-    Cookies.set('user.username', username)
-    Cookies.set('user.email', email)
-    Cookies.set('user.password', password)
-    Cookies.set('user.confirmation_code',1234)
-    window.location.href = `/confirm?email=${email}`
+    try {
+      Auth.signIn(username, password)
+        .then(user => {
+          localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+          window.location.href = "/"
+        })
+        .catch(err => { console.log('Error!', err) });
+    } catch (error) {
+      if (error.code == 'UserNotConfirmedException') {
+        window.location.href = "/confirm"
+      }
+      setCognitoErrors(error.message)
+    }
     return false
   }
+  
+  
 
   const name_onchange = (event) => {
     setName(event.target.value);
