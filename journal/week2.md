@@ -33,6 +33,17 @@ I wrote to the app.py file code that initializes automatic instrumentation with 
 
 ![image](https://user-images.githubusercontent.com/96197101/223725999-e1228242-c228-46b4-9f15-2156f1e5ee27.png)
 
+I run custom query that shows latency for selected user id.
+
+![image](https://user-images.githubusercontent.com/96197101/223766810-13b6b62f-0a95-44fb-b5ee-234a9ca0c0c7.png)
+
+I saved this query in a board. 
+
+![image](https://user-images.githubusercontent.com/96197101/223767188-5bab4226-70d6-4594-bc5c-697d26f94bdf.png)
+
+
+
+
 And now when i hit an enpoint data is send to Honeycomb.
 
 ![image](https://user-images.githubusercontent.com/96197101/223733098-01f1a607-6406-4df0-9bba-14371814a672.png)
