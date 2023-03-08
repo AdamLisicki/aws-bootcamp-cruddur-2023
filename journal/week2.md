@@ -72,7 +72,7 @@ I created query that shows latencies of specified UserId.
 
 ![image](https://user-images.githubusercontent.com/96197101/223767636-5de8344b-171a-41d4-9d63-176d7e2593b6.png)
 
-I saved this query in board.
+I saved this query in the board.
 
 ![image](https://user-images.githubusercontent.com/96197101/223767759-1ef0e0d9-24f0-46c2-8b2b-f5c404f52ca4.png)
 
