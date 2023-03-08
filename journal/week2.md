@@ -84,3 +84,45 @@ Firstly I added <code>aws-xray-sdk</code> to the requirements.txt file and then 
 
 ![image](https://user-images.githubusercontent.com/96197101/223838332-a5f85cb6-e04b-43ca-b851-a13c212afd36.png)
 
+I created a xray group.
+
+![image](https://user-images.githubusercontent.com/96197101/223842085-4388aa2a-9f72-4bda-aba8-95dc2166229b.png)
+
+I created a sampling rule.
+
+![image](https://user-images.githubusercontent.com/96197101/223843997-fb76c569-a167-4863-a136-1e5a75a29237.png)
+
+Added to the docker compose file lines that create a container with a X-Ray deamon.
+
+![image](https://user-images.githubusercontent.com/96197101/223860608-91f92f3d-0ff4-4326-a2b4-19cea1e54dc6.png)
+
+Added two environment variables for X-ray.
+
+![image](https://user-images.githubusercontent.com/96197101/223863868-ee4a3701-3a17-4b3b-983f-852580830da4.png)
+
+Added code for X-ray in the app.py file.
+
+![image](https://user-images.githubusercontent.com/96197101/223866920-f6eb4d17-2be6-406f-9768-c131502c4064.png)
+
+I run docker compose up.
+
+![image](https://user-images.githubusercontent.com/96197101/223867099-2b74dbfb-9e44-4a78-9dfc-8793b71823cd.png)
+
+I hit an endpoint few times. 
+
+![image](https://user-images.githubusercontent.com/96197101/223867163-27a0a13c-0b9c-4778-a036-b2a94ab817e0.png)
+
+In the x-ray contaier logs I see that data is send to AWS X-ray.
+
+![image](https://user-images.githubusercontent.com/96197101/223867229-7169575a-e36f-42c5-877d-c1eca3612600.png)
+
+In AWS Portal I can see that data showed up.
+
+![image](https://user-images.githubusercontent.com/96197101/223867479-811690b8-a726-435c-b927-7baa0e12b65d.png)
+
+
+
+
+
+
+
