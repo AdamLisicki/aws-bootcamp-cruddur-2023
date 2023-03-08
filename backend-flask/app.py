@@ -44,10 +44,7 @@ tracer = trace.get_tracer(__name__)
 # simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 # provider.add_span_processor(simple_processor)
 
-# X-RAY ------------------
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
-XRayMiddleware(app, xray_recorder)
+
 
 app = Flask(__name__)
 
@@ -56,6 +53,12 @@ cognito_jwt_token = CognitoJwtToken(
   user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"), 
   region= os.getenv("AWS_DEFAULT_REGION")
 )
+
+# X-RAY ------------------
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+
 
 # HoneyComb ------------
 # Initialize automatic instrumentation with Flask
