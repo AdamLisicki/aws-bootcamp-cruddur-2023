@@ -60,7 +60,7 @@ I added custom attribute to span user.id with hard coded value of User ID.
 
 ![image](https://user-images.githubusercontent.com/96197101/223761530-6ee4ed15-5be3-4aae-962a-7602a30e2cc5.png)
 
-After implementation of Cognito from Week 3 of the bootcamp I change hard coded value to ID of logged in user.
+After implementation of Amazon Cognito from Week 3 of the bootcamp I change hard coded value to ID of logged in user.
 
 ![image](https://user-images.githubusercontent.com/96197101/223764183-9136c91b-917b-4c29-8134-b19864c25ed9.png)
 
