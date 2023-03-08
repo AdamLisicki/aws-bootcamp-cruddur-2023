@@ -76,13 +76,3 @@ I saved this query in board.
 
 ![image](https://user-images.githubusercontent.com/96197101/223767759-1ef0e0d9-24f0-46c2-8b2b-f5c404f52ca4.png)
 
-![image](https://user-images.githubusercontent.com/96197101/223767308-d1b53319-f751-49a9-9289-a9c3b31e8bb7.png)
-
-I created query that shows latencies of specified UserId.
-
-![Uploading image.png…]()
-
-I saved this query in board.
-
-![Uploading image.png…]()
-
