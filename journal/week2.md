@@ -76,3 +76,11 @@ I saved this query in the board.
 
 ![image](https://user-images.githubusercontent.com/96197101/223767759-1ef0e0d9-24f0-46c2-8b2b-f5c404f52ca4.png)
 
+## Instrument AWS X-Ray
+
+Firstly I added <code>aws-xray-sdk</code> to the requirements.txt file and then run <code> pip install -r requirements.txt </code> to install AWS X-RAY SDK.
+
+![image](https://user-images.githubusercontent.com/96197101/223838244-4f5c49df-ee32-4f96-aafc-0e9d9a713126.png)
+
+![image](https://user-images.githubusercontent.com/96197101/223838332-a5f85cb6-e04b-43ca-b851-a13c212afd36.png)
+
