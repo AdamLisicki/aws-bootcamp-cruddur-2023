@@ -68,4 +68,21 @@ When I hit now this enpoint I can see in Honeycomb ID of user who call this endp
 
 ![image](https://user-images.githubusercontent.com/96197101/223764481-3b888dc3-61c8-4684-b438-9b9b1eb34026.png)
 
+I created query that shows latencies of specified UserId.
+
+![image](https://user-images.githubusercontent.com/96197101/223767636-5de8344b-171a-41d4-9d63-176d7e2593b6.png)
+
+I saved this query in board.
+
+![image](https://user-images.githubusercontent.com/96197101/223767759-1ef0e0d9-24f0-46c2-8b2b-f5c404f52ca4.png)
+
+![image](https://user-images.githubusercontent.com/96197101/223767308-d1b53319-f751-49a9-9289-a9c3b31e8bb7.png)
+
+I created query that shows latencies of specified UserId.
+
+![Uploading image.png…]()
+
+I saved this query in board.
+
+![Uploading image.png…]()
 
