@@ -120,6 +120,27 @@ In AWS Portal I can see that data showed up.
 
 ![image](https://user-images.githubusercontent.com/96197101/223867479-811690b8-a726-435c-b927-7baa0e12b65d.png)
 
+## Instrument AWS X-Ray Subsegments
+
+Create a segment for /api/activities/home and /api/activities/@user endpoints.
+
+![image](https://user-images.githubusercontent.com/96197101/224176741-e0063a2d-a733-4da8-8738-098df19ce5e3.png)
+
+And when I hit an /api/activities/home endpoint In the X-Ray I can see created segment.
+
+![image](https://user-images.githubusercontent.com/96197101/224176926-0bb98e93-137e-4da7-8200-403a94c2ea2c.png)
+
+Create subsegment for the user activities endpoint.
+
+![image](https://user-images.githubusercontent.com/96197101/224177345-1611338a-de9b-4eec-b678-19867d8d414b.png)
+
+After hitting an /api/activities/@andrewbrown endpoint X-Ray is showing created subsegment named "mock-data".
+
+![image](https://user-images.githubusercontent.com/96197101/224177780-488b95db-6642-4f0f-ae13-418ac4213680.png)
+
+
+
+
 
 
 
