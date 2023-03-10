@@ -163,6 +163,26 @@ And when I run the app I can see the logs in CloudWatch.
 ![image](https://user-images.githubusercontent.com/96197101/224445355-63454ead-a9c8-4366-a0df-1ed544b7bacd.png)
 
 
+## Integrate Rollbar and capture and error
+
+Added <code>blinker</code> and <code>rollback</code> to requirements.txt and then run <code>pip install -r requirements.txt</code>
+
+Then set environment variable for rollback access token and add it to the docker-compose file.
+
+Add this lines of code to the app.py file.
+
+![image](https://user-images.githubusercontent.com/96197101/224446851-91d0cdb9-bdfb-416b-ac60-abfe846c62cc.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224446888-21b1a863-f15f-4971-864d-ee04ee099c63.png)
+
+After docker compose up and hitting /rollbar/test endpoint in rollbar I can see items.
+
+![image](https://user-images.githubusercontent.com/96197101/224447249-cc9e6d9d-8d1d-4bee-85db-2875f96ac97e.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224447285-1aae45ac-7caa-494c-9b7f-ce77d03c123b.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224447311-e381ca47-c55b-46ea-a036-7e57cce31619.png)
+
 
 
 
