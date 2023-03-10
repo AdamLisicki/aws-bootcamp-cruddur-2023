@@ -183,6 +183,11 @@ After docker compose up and hitting /rollbar/test endpoint in rollbar I can see 
 
 ![image](https://user-images.githubusercontent.com/96197101/224447311-e381ca47-c55b-46ea-a036-7e57cce31619.png)
 
+After I edit code to return error in rollbar I get information about error.
+
+![image](https://user-images.githubusercontent.com/96197101/224448338-ceab332a-6a05-4636-a05a-05ff81b7c690.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224448359-a47bdc4f-b32d-4548-9071-9663d87cc315.png)
 
 
 
