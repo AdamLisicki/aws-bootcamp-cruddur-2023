@@ -139,6 +139,29 @@ After hitting an /api/activities/@andrewbrown endpoint X-Ray is showing created 
 ![image](https://user-images.githubusercontent.com/96197101/224177780-488b95db-6642-4f0f-ae13-418ac4213680.png)
 
 
+## Configure custom logger to send to CloudWatch Logs
+
+Added <code>watchtower</code> to requirements.txt and then run <code>pip install -r requirements.txt</code>
+
+In the app.py file add this piece of code to configure logger to use CloudWatch.
+
+![image](https://user-images.githubusercontent.com/96197101/224444860-def275a6-f15a-49a3-a38c-8e3e750276cd.png)
+
+In the home_activities.py file add this piece of code to add custom loggin to HomeActivities.
+
+![image](https://user-images.githubusercontent.com/96197101/224445006-8b0c137f-2b43-43b1-b644-567705b2eaaf.png)
+
+
+And in the /api/activities/home endpoind add value to the argument logger of <code>run</code> method. 
+
+![image](https://user-images.githubusercontent.com/96197101/224445104-25286e24-daa3-466d-b032-a6a474731e7b.png)
+
+And when I run the app I can see the logs in CloudWatch.
+
+![image](https://user-images.githubusercontent.com/96197101/224445325-30073b91-398e-4b77-b6c4-1a974395cbef.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224445355-63454ead-a9c8-4366-a0df-1ed544b7bacd.png)
+
 
 
 
