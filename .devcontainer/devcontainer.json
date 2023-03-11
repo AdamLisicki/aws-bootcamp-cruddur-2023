@@ -10,8 +10,9 @@
 		"ghcr.io/devcontainers/features/aws-cli:1": {}
 	},
 	"remoteEnv":{
-		"AWS_CLI_AUTOPROMPT": "on-partial"
+		"AWS_CLI_AUTO_PROMPT": "on-partial"
 	},
+	"postCreateCommand": "cd ./frontend-react-js; npm install; cd .. ",
 	"customizations": {
 		"vscode": {
 			"extensions": [
