@@ -25,7 +25,8 @@ services:
       - ./backend-flask:/backend-flask
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+      # REACT_APP_BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_USER_POOLS_ID: "us-east-1_5SN7XhsT0"
@@ -57,24 +58,24 @@ services:
   #   volumes:
   #     - "./docker/dynamodb:/home/dynamodblocal/data"
   #   working_dir: /home/dynamodblocal
-  # db:
-  #   image: postgres:13-alpine
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=password
-  #   ports:
-  #     - '5432:5432'
-  #   volumes: 
-  #     - db:/var/lib/postgresql/data
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
 
 # the name flag is a hack to change the default prepend folder
 # name when outputting the image names
-# networks: 
-#   internal-network:
-#     driver: bridge
-#     name: cruddur
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
 
-# volumes:
-#   db:
-#     driver: local
+volumes:
+  db:
+    driver: local
