@@ -69,7 +69,7 @@ And also I added this to <code>.gitpod.yml</code> file to added this path to var
 ![image](https://user-images.githubusercontent.com/96197101/224545099-abc6b799-3d37-444d-9f58-ed4d33056aaf.png)
 
 
-### Script for creating a database named cruddur.
+### Script to Create DB.
 
 Script is removing name of database from my env var and assings it to variable NO_DB_CONNECTION SQL. Then script is executing command for creating database inside PSQL instance that connection string is pointing to. 
 
@@ -79,7 +79,7 @@ After execuiting <code>db-create</code> command database is created.
 
 ![image](https://user-images.githubusercontent.com/96197101/224545136-5353c5fd-1e9b-4c9f-8860-905a91fe6ca7.png)
 
-### Script for loading a schema into database.
+### Script to load a schema.
 
 First script is assinging a path to my database schema which is located in backend/db/schema.sql.
 Then if script will be called with parameter <code>prod</code> diffrent database connection string is assiging to variablee URL. <code>$1</code> means first parameter after command eg. <code> db-schema-load prod </code> prod is "$1" and "$0" is command. 
@@ -92,7 +92,7 @@ After execuiting <code>db-schema-load</code> command schema is loaded into datab
 ![image](https://user-images.githubusercontent.com/96197101/224545171-113d47d9-69af-4d2d-9802-3af027d41cbb.png)
 
 
-### Script for seeding database.
+### Script to load the seed data.
 
 This script is the same as for loading schema, but only difference is variable that is pointing to <code>seed.sql</code>. 
 
@@ -103,7 +103,7 @@ After execuiting <code>db-seed</code> command database is poplulated with data.
 ![image](https://user-images.githubusercontent.com/96197101/224545254-7caa76f1-8e3c-4e90-9267-803f466dfe06.png)
 
 
-###  Script for connecting to database
+###  Script to Connect to DB
 
 Script is using the environment variable with the connection string and executing command that is connecting to the database.
 
@@ -117,7 +117,7 @@ And all tables are created and schemas are loaded.
 
 ![image](https://user-images.githubusercontent.com/96197101/224545454-3221a325-79fd-4854-a405-c19304176f19.png)
 
-### Script for deleting a database
+### Script to Drop DB
 
 This script is the same as for creating database, but only difference is that used command in psql is for droping database.
 
