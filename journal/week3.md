@@ -122,3 +122,13 @@ For example for /api/activities/home endpoint add this code in app.py file.
 And add this code to home_activities.py so when user is logged he can sees additional entry.
 
 ![image](https://user-images.githubusercontent.com/96197101/224518842-2abea171-7277-4399-ad09-c1a3cf185778.png)
+
+User is not logged in.
+
+![image](https://user-images.githubusercontent.com/96197101/224519000-e107d519-15a3-413e-a7e2-90d152164165.png)
+
+User is logged in.
+
+![image](https://user-images.githubusercontent.com/96197101/224519016-9ffac2b3-ca84-4a02-80fd-b3c8f8a1e91c.png)
+
+
