@@ -218,6 +218,22 @@ Add this commands to <code>.gitpod.yml</code> file to run it everytime the new G
 
 ![image](https://user-images.githubusercontent.com/96197101/224577837-d6c7ce46-ce91-481c-b1c2-b99bb0c594b4.png)
 
+Edit docker compose file to use environemnt variable for production database (RDS Instance).
+
+![image](https://user-images.githubusercontent.com/96197101/224578487-3f75f792-e538-4160-8ca0-6c999db2ac29.png)
+
+After compose up load schema into production database.
+
+![image](https://user-images.githubusercontent.com/96197101/224578514-c761c4d9-f82c-46dc-bb59-5fe3b30b0f1f.png)
+
+And seed date into it.
+
+![image](https://user-images.githubusercontent.com/96197101/224578529-79a97e90-139a-4470-b278-3199a6a466b8.png)
+
+And now when I go to the fronted URL I can see that it received data from RDS Instance.
+
+![image](https://user-images.githubusercontent.com/96197101/224578570-6b6c4b2b-dd06-4bb9-8b6a-d3a362252dab.png)
+
 
 
 
