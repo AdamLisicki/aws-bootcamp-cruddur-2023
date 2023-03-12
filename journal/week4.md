@@ -119,6 +119,16 @@ And all tables are created and schemas are loaded.
 
 ![image](https://user-images.githubusercontent.com/96197101/224564569-cb05f9b2-2298-46c9-9ecc-4c7c3e6d1d23.png)
 
+### Script to see open connections to our database
+
+![image](https://user-images.githubusercontent.com/96197101/224564782-383ff71c-ee9b-4f93-9d55-fb6039adf684.png)
+
+And when we connect to our db through GUI and run db-session command we can see open connections to our database.
+
+![image](https://user-images.githubusercontent.com/96197101/224564830-c22d6f68-4746-4db4-babd-6db0896b8c81.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224564843-c1770933-9e18-43ea-9306-de0f966e4e1f.png)
+
 
 ### Script to Drop DB
 
