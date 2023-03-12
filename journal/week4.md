@@ -216,7 +216,8 @@ Script for updating SG rule.
 
 Add this commands to <code>.gitpod.yml</code> file to run it everytime the new Gitpod environment lunches up.
 
-![image](https://user-images.githubusercontent.com/96197101/224577638-c7ce0baa-8e60-485f-9f3d-17ac0afdac4c.png)
+![image](https://user-images.githubusercontent.com/96197101/224577837-d6c7ce46-ce91-481c-b1c2-b99bb0c594b4.png)
+
 
 
 
