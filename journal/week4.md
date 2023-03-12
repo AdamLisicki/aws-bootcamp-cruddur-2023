@@ -40,6 +40,17 @@ After docker compose up I am able to log into PostgresSQL instance and list data
 
 ![image](https://user-images.githubusercontent.com/96197101/224543684-67935d5c-4d70-4034-9768-6676e5a5499c.png)
 
+## Creating files for schema and seed.
+
+schema.sql file for defining a schema of database.
+
+![image](https://user-images.githubusercontent.com/96197101/224545685-7fbb4606-bfa2-470e-8e29-5c28c7143379.png)
+
+seed.sql file for insterting some data into database.
+
+![image](https://user-images.githubusercontent.com/96197101/224545711-42409c5d-7159-444b-b56e-de94f138d5ac.png)
+
+
 
 ## Creating bash scripts that create, drop, load schema and seed.
 
