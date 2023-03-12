@@ -206,6 +206,23 @@ Now I can connect to RDS instance.
 
 ![image](https://user-images.githubusercontent.com/96197101/224576111-4e3da619-af0c-428a-8435-80d075763512.png)
 
+But Gitpod ip address will not be the same every time so I need to create script that updates inboud rules.
+
+I set up the environment variables for securitu group ID and inboud rule ID.
+
+Script for updating SG rule.
+
+![image](https://user-images.githubusercontent.com/96197101/224576975-cc697109-fcd1-4745-9f93-93c1c0279818.png)
+
+Add this commands to <code>.gitpod.yml</code> file to run it everytime the new Gitpod environment lunches up.
+
+![image](https://user-images.githubusercontent.com/96197101/224577638-c7ce0baa-8e60-485f-9f3d-17ac0afdac4c.png)
+
+
+
+
+
+
 
 
 
