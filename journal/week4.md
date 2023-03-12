@@ -157,6 +157,57 @@ Add <code> psycopg </code> and <code> psycopg </code> drivers to the requirement
 
 And run <code> pip install -r requirements.txt </code>.
 
+Then setup environemnt variable in docker compose file for backend-flask.
+
+![image](https://user-images.githubusercontent.com/96197101/224574510-cb5ab647-72f1-498e-af21-f4f43164f3af.png)
+
+Create file lib/db.py and put code into it that creating connection pool for database.
+This two functions are here for converting data from SQL query to json format.
+
+![image](https://user-images.githubusercontent.com/96197101/224574587-d9f6e726-20e2-41e1-9116-f09e0ba78fb0.png)
+
+
+In the home_activities.py file modify a code to connect to database, run query, transform it to json and return. 
+
+![image](https://user-images.githubusercontent.com/96197101/224574707-f4dd55bc-918e-473c-86b4-b16982c7dbec.png)
+
+After compose up I could see that we are getting data from database.
+
+![image](https://user-images.githubusercontent.com/96197101/224574840-859fb0b4-fd37-4e20-88ed-34b610ba1edf.png)
+
+Then in the home_activities.py file modify query to get only data that we want.
+
+![image](https://user-images.githubusercontent.com/96197101/224574995-a0be29d3-2764-478d-ab81-f94fd8e56f84.png)
+
+And the result. Username and preffered username showed up. 
+
+![image](https://user-images.githubusercontent.com/96197101/224575011-6d8c9a1c-b677-4699-a7b2-2b6fa7dbcb88.png)
+
+
+## Connect to AWS SQL RDS from Gitpod
+
+After starting RDS instance go to security group associated with it.
+
+![image](https://user-images.githubusercontent.com/96197101/224575956-34861876-26f9-4a6e-bb41-f136caf19b56.png)
+
+Go to Edit Inboud Rules.
+
+![image](https://user-images.githubusercontent.com/96197101/224575982-26904468-4c05-44a3-8323-a7f91e970d6b.png)
+
+To get Gitpod ip address run below command.
+
+![image](https://user-images.githubusercontent.com/96197101/224576042-44aba393-0393-4456-b1b8-86355397250f.png)
+
+And add it to inboud rules and save them.
+
+![image](https://user-images.githubusercontent.com/96197101/224576086-5225e472-e49b-4a45-8e20-3bb9a98c4246.png)
+
+Now I can connect to RDS instance.
+
+![image](https://user-images.githubusercontent.com/96197101/224576111-4e3da619-af0c-428a-8435-80d075763512.png)
+
+
+
 
 
 
