@@ -121,7 +121,7 @@ And all tables are created and schemas are loaded.
 
 ### Script to see open connections to our database
 
-![image](https://user-images.githubusercontent.com/96197101/224564782-383ff71c-ee9b-4f93-9d55-fb6039adf684.png)
+![image](https://user-images.githubusercontent.com/96197101/224565038-77341e46-8c1e-497c-9217-e5886f35b56f.png)
 
 And when we connect to our db through GUI and run db-session command we can see open connections to our database.
 
