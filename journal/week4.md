@@ -157,6 +157,32 @@ Add <code> psycopg </code> and <code> psycopg </code> drivers to the requirement
 
 And run <code> pip install -r requirements.txt </code>.
 
+Then setup environemnt variable in docker compose file for backend-flask.
+
+![image](https://user-images.githubusercontent.com/96197101/224574510-cb5ab647-72f1-498e-af21-f4f43164f3af.png)
+
+Create file lib/db.py and put code into it that creating connection pool for database.
+This two functions are here for converting data from SQL query to json format.
+
+![image](https://user-images.githubusercontent.com/96197101/224574587-d9f6e726-20e2-41e1-9116-f09e0ba78fb0.png)
+
+
+In the home_activities.py file modify a code to connect to database, run query, transform it to json and return. 
+
+![image](https://user-images.githubusercontent.com/96197101/224574707-f4dd55bc-918e-473c-86b4-b16982c7dbec.png)
+
+After compose up I could see that we are getting data from database.
+
+![image](https://user-images.githubusercontent.com/96197101/224574840-859fb0b4-fd37-4e20-88ed-34b610ba1edf.png)
+
+Then in the home_activities.py file modify query to get only data that we want.
+
+![image](https://user-images.githubusercontent.com/96197101/224574995-a0be29d3-2764-478d-ab81-f94fd8e56f84.png)
+
+And the result. Username and preffered username showed up. 
+
+![image](https://user-images.githubusercontent.com/96197101/224575011-6d8c9a1c-b677-4699-a7b2-2b6fa7dbcb88.png)
+
 
 
 
