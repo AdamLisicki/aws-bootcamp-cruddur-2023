@@ -107,7 +107,7 @@ After execuiting <code>db-seed</code> command database is poplulated with data.
 
 Script is using the environment variable with the connection string and executing command that is connecting to the database.
 
-![image](https://user-images.githubusercontent.com/96197101/224545277-cb7e17f8-f7dd-4120-aa04-e65a06f2c5f5.png)
+![image](https://user-images.githubusercontent.com/96197101/224578004-161c49c0-0b81-4045-9da5-5a3f40c368cd.png)
 
 After execuiting <code>db-connect</code> command I am able to connect to database.
 
