@@ -184,5 +184,30 @@ And the result. Username and preffered username showed up.
 ![image](https://user-images.githubusercontent.com/96197101/224575011-6d8c9a1c-b677-4699-a7b2-2b6fa7dbcb88.png)
 
 
+## Connect to AWS SQL RDS from Gitpod
+
+After starting RDS instance go to security group associated with it.
+
+![image](https://user-images.githubusercontent.com/96197101/224575956-34861876-26f9-4a6e-bb41-f136caf19b56.png)
+
+Go to Edit Inboud Rules.
+
+![image](https://user-images.githubusercontent.com/96197101/224575982-26904468-4c05-44a3-8323-a7f91e970d6b.png)
+
+To get Gitpod ip address run below command.
+
+![image](https://user-images.githubusercontent.com/96197101/224576042-44aba393-0393-4456-b1b8-86355397250f.png)
+
+And add it to inboud rules and save them.
+
+![image](https://user-images.githubusercontent.com/96197101/224576086-5225e472-e49b-4a45-8e20-3bb9a98c4246.png)
+
+Now I can connect to RDS instance.
+
+![image](https://user-images.githubusercontent.com/96197101/224576111-4e3da619-af0c-428a-8435-80d075763512.png)
+
+
+
+
 
 
