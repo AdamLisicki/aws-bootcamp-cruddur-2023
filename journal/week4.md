@@ -149,3 +149,14 @@ After executing this command database is dropped.
 
 ![image](https://user-images.githubusercontent.com/96197101/224545606-f74784af-6867-4dc9-8db4-4e7f7c8f4399.png)
 
+## Install driver for PostgreSQL
+
+Add <code> psycopg </code> and <code> psycopg </code> drivers to the requirements.txt file.
+
+![image](https://user-images.githubusercontent.com/96197101/224566511-5e935c7d-b8c2-4f04-b24e-9a9a337d764f.png)
+
+And run <code> pip install -r requirements.txt </code>.
+
+
+
+
