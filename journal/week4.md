@@ -117,6 +117,9 @@ And all tables are created and schemas are loaded.
 
 ![image](https://user-images.githubusercontent.com/96197101/224545454-3221a325-79fd-4854-a405-c19304176f19.png)
 
+![image](https://user-images.githubusercontent.com/96197101/224564569-cb05f9b2-2298-46c9-9ecc-4c7c3e6d1d23.png)
+
+
 ### Script to Drop DB
 
 This script is the same as for creating database, but only difference is that used command in psql is for droping database.
