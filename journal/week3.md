@@ -109,7 +109,7 @@ And in HomeFeedPage.js add header with access token.
 
 ![image](https://user-images.githubusercontent.com/96197101/224518613-460719a5-c7a6-429c-962c-9eaba79613c4.png)
 
-To transger our access token to the backend we need to update CORS.
+To transfer our access token to the backend we need to update CORS.
 
 ![image](https://user-images.githubusercontent.com/96197101/224518761-50b0b27c-0980-4e0d-becd-018e53d31c1b.png)
 
