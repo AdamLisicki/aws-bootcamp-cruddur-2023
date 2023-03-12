@@ -129,6 +129,14 @@ And when we connect to our db through GUI and run db-session command we can see 
 
 ![image](https://user-images.githubusercontent.com/96197101/224564843-c1770933-9e18-43ea-9306-de0f966e4e1f.png)
 
+## Script to setup DB
+
+![image](https://user-images.githubusercontent.com/96197101/224565884-4a0a1398-b638-4978-8e3d-58d401088d1f.png)
+
+After running db-setup command.
+
+![image](https://user-images.githubusercontent.com/96197101/224565738-4cd2b0a3-f201-4385-a5b3-7574510949c1.png)
+
 
 ### Script to Drop DB
 
