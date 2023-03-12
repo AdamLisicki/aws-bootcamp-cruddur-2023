@@ -131,7 +131,7 @@ And when we connect to our db through GUI and run db-session command we can see 
 
 ## Script to setup DB
 
-![image](https://user-images.githubusercontent.com/96197101/224565884-4a0a1398-b638-4978-8e3d-58d401088d1f.png)
+![image](https://user-images.githubusercontent.com/96197101/224565993-26a23e93-b23a-48c8-9307-c98af682caef.png)
 
 After running db-setup command.
 
