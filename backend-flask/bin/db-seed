@@ -4,8 +4,6 @@ NO_COLOR='\033[0m'
 LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-echo "db-schema-load"
-
 seed_path=$(dirname $(dirname $(readlink -fm $0)))"/db/seed.sql"
 
 if [ "$1" = "prod" ]; then
