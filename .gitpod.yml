@@ -18,9 +18,13 @@ tasks:
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
+    command: |
+      export GITPOD_IP=$(curl ifconfig.me)
+      source "$THEIA_WORKSPACE_ROOT/backend-flask/rds-update-sg-rule"
   - name: db-commands
     command: |
       export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin
+
 
 vscode:
   extensions:
