@@ -117,6 +117,27 @@ And all tables are created and schemas are loaded.
 
 ![image](https://user-images.githubusercontent.com/96197101/224545454-3221a325-79fd-4854-a405-c19304176f19.png)
 
+![image](https://user-images.githubusercontent.com/96197101/224564569-cb05f9b2-2298-46c9-9ecc-4c7c3e6d1d23.png)
+
+### Script to see open connections to our database
+
+![image](https://user-images.githubusercontent.com/96197101/224565038-77341e46-8c1e-497c-9217-e5886f35b56f.png)
+
+And when we connect to our db through GUI and run db-session command we can see open connections to our database.
+
+![image](https://user-images.githubusercontent.com/96197101/224564830-c22d6f68-4746-4db4-babd-6db0896b8c81.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224564843-c1770933-9e18-43ea-9306-de0f966e4e1f.png)
+
+## Script to setup DB
+
+![image](https://user-images.githubusercontent.com/96197101/224565993-26a23e93-b23a-48c8-9307-c98af682caef.png)
+
+After running db-setup command.
+
+![image](https://user-images.githubusercontent.com/96197101/224565738-4cd2b0a3-f201-4385-a5b3-7574510949c1.png)
+
+
 ### Script to Drop DB
 
 This script is the same as for creating database, but only difference is that used command in psql is for droping database.
