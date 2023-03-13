@@ -235,6 +235,50 @@ And now when I go to the fronted URL I can see that it received data from RDS In
 ![image](https://user-images.githubusercontent.com/96197101/224578570-6b6c4b2b-dd06-4bb9-8b6a-d3a362252dab.png)
 
 
+## Cognito Post Confirmation Lambda
+
+Create Lambda function.
+
+![image](https://user-images.githubusercontent.com/96197101/224633690-88ae1fc0-c017-4491-b146-5458a48b08f1.png)
+
+Then create a code that takes user attributes from Cognito and inserting them into database.
+
+![image](https://user-images.githubusercontent.com/96197101/224657250-4a7d38ed-a12d-4f76-b55d-b12039087074.png)
+
+Create <code> Post confirmation Lambda trigger </code> so after user confirmed account the lambda will trigger.
+  
+![image](https://user-images.githubusercontent.com/96197101/224657451-658ee74c-bff3-4eb4-8835-feeba05a1bfe.png)
+ 
+Create and attach permissions to Lambda role so it can create network interface.
+
+![image](https://user-images.githubusercontent.com/96197101/224657973-46d82de7-c6f6-467a-b7b8-bd172e2d0ef7.png)
+
+![image](https://user-images.githubusercontent.com/96197101/224658095-4aaadcdb-5d77-49b7-8710-cdf768195a41.png)
+
+Add Lambda to the same VPC as RDS Instance is located.
+
+![image](https://user-images.githubusercontent.com/96197101/224658333-dbaaf57c-d33e-4c9d-b767-a3ed78d2d76a.png)
+
+Update schema.
+
+![image](https://user-images.githubusercontent.com/96197101/224658512-4804043b-c6f4-4246-ab01-be8cde99f864.png)
+
+Load schema to RDS Instance.
+
+![image](https://user-images.githubusercontent.com/96197101/224658605-f08f6350-3e7e-49b5-b41d-1200f71c0f09.png)
+
+Then when I sing up and confirm email in the table users I can see entry with my account.
+
+![image](https://user-images.githubusercontent.com/96197101/224658967-5c55b4ad-2d7f-459f-b344-354a8fff6e77.png)
+
+
+
+
+
+
+
+
+
 
 
 
