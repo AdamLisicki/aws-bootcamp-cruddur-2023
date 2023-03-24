@@ -132,3 +132,18 @@ User is logged in.
 ![image](https://user-images.githubusercontent.com/96197101/224519016-9ffac2b3-ca84-4a02-80fd-b3c8f8a1e91c.png)
 
 
+## Implement MFA that send an SMS
+
+In Amazon Conginto user pool navigate to Sing-in experience tab, and select Edit in Multi-factor authentication section.
+
+![image](https://user-images.githubusercontent.com/96197101/227641657-f0504822-c860-4378-a39b-d30dbd1840f7.png)
+
+The select Optional MFA and SMS message. Click Configure SMS.
+
+![image](https://user-images.githubusercontent.com/96197101/227642065-0109a25d-9454-4688-a28f-27b3bc6bd133.png)
+
+Create new IAM role and click save changes.
+
+![image](https://user-images.githubusercontent.com/96197101/227642307-d724ca4c-d33e-4c45-9f32-03c3910a4050.png)
+
+And now users can use optional MFA using SMS message.
