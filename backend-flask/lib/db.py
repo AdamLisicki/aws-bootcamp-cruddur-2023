@@ -61,7 +61,7 @@ class Db:
     except Exception as err:
       self.print_sql_err(err)
   
-  # when we want to return a json object
+  # when we want to return an array of json objects
   def query_array_json(self, sql, **kwargs):
     self.print_sql('array', sql)
 
@@ -72,7 +72,7 @@ class Db:
         json = cur.fetchone()
         return json[0]
 
-  # when we want to return an array of json objects
+  # when we want to return a json object
   def query_object_json(self, sql, **kwargs):
     self.print_sql('json', sql)
     self.print_params(kwargs)
