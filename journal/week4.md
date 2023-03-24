@@ -271,17 +271,61 @@ Then when I sing up and confirm email in the table users I can see entry with my
 
 ![image](https://user-images.githubusercontent.com/96197101/224658967-5c55b4ad-2d7f-459f-b344-354a8fff6e77.png)
 
+## Creating activities
+
+Create sql code that creating row in database with uuid, message and expires_at values.
+
+![image](https://user-images.githubusercontent.com/96197101/227652455-749cf8c0-513a-4efa-a440-7b3a660f7ee8.png)
+
+Write a function that reads SQL code from db/sql catalog.
+
+![image](https://user-images.githubusercontent.com/96197101/227653794-f8b81f02-25c5-4884-a69e-3cb89d007786.png)
+
+Write a function that insterts data to database.
+
+![image](https://user-images.githubusercontent.com/96197101/227654302-653a61b2-e9c7-466a-8713-6070b3298130.png)
+
+Write a function in crate_activity.py file that takes SQL code from db/sq/activities/create.sql and inserting values to the database.
+
+![image](https://user-images.githubusercontent.com/96197101/227654585-9e63ba2c-5912-47e9-8c11-aceb797ed7b8.png)
+
+Create SQL code that returnig activity with specified uuid.
+
+![image](https://user-images.githubusercontent.com/96197101/227654709-7d587f92-fdcb-4d8e-ac02-64ff9fb0c648.png)
+
+Create a function that converts SQL response to JSON format and returns an singe JSON object.
+
+![image](https://user-images.githubusercontent.com/96197101/227655608-d004d816-ed28-4778-8e54-6a39ba233689.png)
+
+Create a function in craete_activity.py file that read SQL code from db/sql/activities/boject.sql and converts SQL response to JSON format.
+
+![image](https://user-images.githubusercontent.com/96197101/227655085-39b6ba89-e381-4de8-ae97-cac9b2573f10.png)
+
+Add to create_activity.py code that is inserting user message to database and then coverts it to JSON format.
+
+![image](https://user-images.githubusercontent.com/96197101/227655273-358dbc77-8a50-454f-af81-4b6be5d25ded.png)
 
 
+Create a SQL code that return all activities sorted by created_at value.
+
+![image](https://user-images.githubusercontent.com/96197101/227655428-cda81009-cfdb-4979-9eb8-f71cd76ebe01.png)
+
+Create a function that return a activities from database in array of JSON objects
+
+![image](https://user-images.githubusercontent.com/96197101/227655494-1f716671-34fa-4955-bbfa-5cadf2d95c34.png)
 
 
+In home_activities.py file add code that reads SQL code from db/sql/activities/home.sql file and returns an array of JSON objects (activities).
 
+![image](https://user-images.githubusercontent.com/96197101/227655681-d592ab4b-7549-4b97-84d4-e7bbd71b8942.png)
 
+Now I can go to app and create some activities.
 
+![image](https://user-images.githubusercontent.com/96197101/227656007-b19fa959-9f68-472d-a2d1-0d6cc3db90df.png)
 
+In database I can see same record as I added in previous step.
 
-
-
+![image](https://user-images.githubusercontent.com/96197101/227656055-19f35765-b180-488a-8954-1ba247f6718e.png)
 
 
 
