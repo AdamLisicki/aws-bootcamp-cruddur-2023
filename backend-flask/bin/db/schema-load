@@ -6,7 +6,7 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 echo "db-schema-load"
 
-schema_path=$(dirname $(dirname $(readlink -fm $0)))"/db/schema.sql"
+schema_path="$(realpath .)/db/schema.sql"
 
 if [ "$1" = "prod" ]; then
     echo "Running in production mode"

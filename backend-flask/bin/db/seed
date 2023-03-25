@@ -4,7 +4,7 @@ NO_COLOR='\033[0m'
 LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-seed_path=$(dirname $(dirname $(readlink -fm $0)))"/db/seed.sql"
+seed_path="$(realpath .)/db/seed.sql"
 
 if [ "$1" = "prod" ]; then
     echo "Running in production mode"
