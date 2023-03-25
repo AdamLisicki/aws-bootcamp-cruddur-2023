@@ -23,7 +23,10 @@ tasks:
       source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule"
   - name: db-commands
     command: |
-      export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin
+      export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/db
+      export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/rds
+      export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/ddb
+
 
 
 vscode:
