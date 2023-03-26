@@ -93,9 +93,6 @@ After execution of this script response from dynamodb is printed.
 ![image](https://user-images.githubusercontent.com/96197101/227784082-398b02ab-1e58-4288-8a9d-e07580147646.png)
 
 
-![image](https://user-images.githubusercontent.com/96197101/227783982-165d9f5c-4574-429e-a1ec-2b05690d594a.png)
-
-
 
 
 
