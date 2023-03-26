@@ -2,7 +2,7 @@
 
  ## Implement Schema Load Script
  
- I wrote schema-load python script that create table named "cruddur-messages" in my local dynamodb instances.
+ I wrote schema-load python script that create table named "cruddur-messages" in my local dynamodb instance.
  
  ![image](https://user-images.githubusercontent.com/96197101/227774661-89f065b9-2a0d-418c-ae50-6804d92c1f7d.png)
  
