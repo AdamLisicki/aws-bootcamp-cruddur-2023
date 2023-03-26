@@ -10,6 +10,23 @@
  
  ![image](https://user-images.githubusercontent.com/96197101/227774870-a6f06604-7094-4e25-af8b-b591916aa0d8.png)
 
+## Implemet List Tables Script
+
+Script that list all tables in dynamodb database.
+
+![image](https://user-images.githubusercontent.com/96197101/227777494-07d8ba29-7476-4b75-bc20-04c86e794d70.png)
+
+Result of executing this script.
+
+![image](https://user-images.githubusercontent.com/96197101/227777542-6f716920-1fb3-46a1-b480-c9462212e692.png)
+
+## Implement Drop Table Script
+
+This script drops table that name is provided as first argument while executing this script.
+
+![image](https://user-images.githubusercontent.com/96197101/227777565-5cb4392c-9cfd-4c30-829c-ee64ab9d427b.png)
+
+
 ## Implement Seed Script
 
 First part of script sets variable attrs. If a first argument is "prod" attrs is empty. 
@@ -41,5 +58,17 @@ In the end script is taking each line from variable "conversation" and using fun
 
 ![image](https://user-images.githubusercontent.com/96197101/227776069-5088866d-b801-471e-98f5-1bfe3d59f899.png)
 
+After executing scritp data is loaded into table.
+
+![image](https://user-images.githubusercontent.com/96197101/227777290-da3bdb96-e460-487e-9a01-1675bf1e8daa.png)
+
 ## Implement Scan Script
+
+Script that is printing all records in table "cruddur-messages".
+
+![image](https://user-images.githubusercontent.com/96197101/227777319-ae5d5ad7-2df2-4063-bda4-744df0f19965.png)
+
+After executing this script the conversation is printed in console.
+
+![image](https://user-images.githubusercontent.com/96197101/227777399-658bf7b4-3856-41e3-8841-46a4ae0cb3bb.png)
 
