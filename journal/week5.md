@@ -72,3 +72,30 @@ After executing this script the conversation is printed in console.
 
 ![image](https://user-images.githubusercontent.com/96197101/227777399-658bf7b4-3856-41e3-8841-46a4ae0cb3bb.png)
 
+## Implement Pattern Scripts for Read and List Conversations
+
+Script that query table by pk that is equal to MSG#{message_group_id} and sk begins with 2023. So this scirpt will gave 20 messages (becouse limit in query is set to 20) that pk is equal to MSG#5ae290ed-55d1-47a0-bc6d-fe2bc2700399 and messages are from 2023 year.
+Then script prints messages. 
+
+![image](https://user-images.githubusercontent.com/96197101/227783206-35b54ac0-eb81-4962-a482-76c5ea436ed2.png)
+
+
+After execution of that script 20 messages from conversation are listed.
+
+![image](https://user-images.githubusercontent.com/96197101/227783833-c8c18519-c6c9-4ec6-8c11-476eb44c214b.png)
+
+Script that gets user uuid and then query all groups messages of this user. 
+
+![image](https://user-images.githubusercontent.com/96197101/227783938-1d3886fa-65b1-4852-a1ae-18076d988b9f.png)
+
+After execution of this script response from dynamodb is printed.
+
+![image](https://user-images.githubusercontent.com/96197101/227784082-398b02ab-1e58-4288-8a9d-e07580147646.png)
+
+
+![image](https://user-images.githubusercontent.com/96197101/227783982-165d9f5c-4574-429e-a1ec-2b05690d594a.png)
+
+
+
+
+
