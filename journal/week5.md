@@ -101,16 +101,39 @@ Function update_users_with_cognito_user_id takes users handle and Cognito user I
 
 ![image](https://user-images.githubusercontent.com/96197101/228157123-7ee8a849-fafb-467a-b81f-040ef24d3766.png)
 
+## Implement (Pattern B) Listing Messages Group into Application
+
+Create a script that connects to DynamoDB and queries for message groups.
+
+![image](https://user-images.githubusercontent.com/96197101/228183919-f534b30e-4d23-454e-b9c9-21c445e91f38.png)
+
+SQL query that gets user UUID for specified Cognito user ID.
+
+![image](https://user-images.githubusercontent.com/96197101/228168002-d2c478e0-5fa3-476f-b5f1-f36b9addd3be.png)
+
+In message_groups.py add code that uses list_message_groups from Ddb.py file and returns message groups.
+
+![image](https://user-images.githubusercontent.com/96197101/228184536-d4866a8a-5dcc-42bc-94b1-d2a879c9ed77.png)
+
+In MessageGroupsPage.js we need to add headers to send acces_token to backend.
+
+![image](https://user-images.githubusercontent.com/96197101/228185502-6f3464d4-2ea5-4950-a447-abb5f7139c21.png)
+
+Then in app.py in /api/messages_group add code that uses message_group.py service and returns errors or data with message groups.
+
+![image](https://user-images.githubusercontent.com/96197101/228184957-025f9191-2819-4c51-8bf3-b2b0e56d27b0.png)
+
+When I sing in and click messages I can see that message group appears.
+
+![image](https://user-images.githubusercontent.com/96197101/228193299-f43a3e26-d5d5-46a0-ba04-d2bd7ba0fdf0.png)
+
+
 ## Implement (Pattern A) Listing Messages in Message Group into Application
 
 Function list_messages in lib/ddb.py file.
 This function queries DynamoDB database for 20 messages from message group that ID is equal to value of message_group_id and messages are from current year.
 
 ![image](https://user-images.githubusercontent.com/96197101/228164591-4d327378-0a87-44b2-8e53-aad3d1ee0d5c.png)
-
-SQL query that gets user UUID for specified Cognito user ID.
-
-![image](https://user-images.githubusercontent.com/96197101/228168002-d2c478e0-5fa3-476f-b5f1-f36b9addd3be.png)
 
 services/messages.py 
 This code calls function list_messages and returns messages for specified message_group_uuid.
@@ -124,6 +147,10 @@ In MessageGroupPage.js file we need to add headers to send access_token to backe
 In app.py for endpoint /api/messages/message_group_uuid added code that takes Cognito user ID and message_group_uuid and returns 20 messages from specified message group. 
 
 ![image](https://user-images.githubusercontent.com/96197101/228174897-c6cc6baf-3e59-40ea-bcbe-5f392f3ea0d8.png)
+
+When I click on message group I can see messages.
+
+![image](https://user-images.githubusercontent.com/96197101/228193549-7bdad350-3ca8-4929-a689-4ab8968d1577.png)
 
 
 
