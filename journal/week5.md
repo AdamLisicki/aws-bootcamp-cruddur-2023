@@ -92,7 +92,38 @@ After execution of this script response from dynamodb is printed.
 
 ![image](https://user-images.githubusercontent.com/96197101/227784082-398b02ab-1e58-4288-8a9d-e07580147646.png)
 
+## Implement Update Cognito ID Script for Postgres Database
 
+Script that updates cognito user ID in PSQL.
+
+Funtion get_cognito_user_ids gets a Cognito user ID from user pool.
+Function update_users_with_cognito_user_id takes users handle and Cognito user ID and updates a Cognito user ID in PSQL database for user with specified handle. 
+
+![image](https://user-images.githubusercontent.com/96197101/228157123-7ee8a849-fafb-467a-b81f-040ef24d3766.png)
+
+## Implement (Pattern A) Listing Messages in Message Group into Application
+
+Function list_messages in lib/ddb.py file.
+This function queries DynamoDB database for 20 messages from message group that ID is equal to value of message_group_id and messages are from current year.
+
+![image](https://user-images.githubusercontent.com/96197101/228164591-4d327378-0a87-44b2-8e53-aad3d1ee0d5c.png)
+
+SQL query that gets user UUID for specified Cognito user ID.
+
+![image](https://user-images.githubusercontent.com/96197101/228168002-d2c478e0-5fa3-476f-b5f1-f36b9addd3be.png)
+
+services/messages.py 
+This code calls function list_messages and returns messages for specified message_group_uuid.
+
+![image](https://user-images.githubusercontent.com/96197101/228168355-01b60f9d-8451-4553-88d4-be699a7dd260.png)
+
+In MessageGroupPage.js file we need to add headers to send access_token to backend.
+
+![image](https://user-images.githubusercontent.com/96197101/228176317-621b6dbb-bddc-4dc4-8ab8-2a72a22912b2.png)
+
+In app.py for endpoint /api/messages/message_group_uuid added code that takes Cognito user ID and message_group_uuid and returns 20 messages from specified message group. 
+
+![image](https://user-images.githubusercontent.com/96197101/228174897-c6cc6baf-3e59-40ea-bcbe-5f392f3ea0d8.png)
 
 
 
