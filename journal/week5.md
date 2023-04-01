@@ -152,5 +152,90 @@ When I click on message group I can see messages.
 
 ![image](https://user-images.githubusercontent.com/96197101/228193549-7bdad350-3ca8-4929-a689-4ab8968d1577.png)
 
+## Implement (Pattern C) Creating a Message for an existing Message Group into Application/Implement (Pattern D) Creating a Message for a new Message Group into Application
+
+In MessageForm.js condition that when new message_group is creating it takes "param.handle" and when we are updating existing one it takes "param.message_group_uuid". 
+
+![image](https://user-images.githubusercontent.com/96197101/229279502-b83690b3-e987-4518-875d-b9b923d81c08.png)
+
+In lib/ddb.py file create the method that creates a message. This method takes: message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle. Then inserts it to the dynamodb database.  
+
+![image](https://user-images.githubusercontent.com/96197101/229278573-26b7b681-43db-4eb9-8182-e72efc996a9a.png)
+
+Create SQL query that returns user UUID, display name, handle and kind. It also recognizes if user is sender or reciver and assing it to column named "kind".
+
+![image](https://user-images.githubusercontent.com/96197101/229280166-e654bc1e-f80c-4e0b-852e-866b5b117e0d.png)
+
+In services/create_meesage.py the method create_mesage first validates some variables.
+
+![image](https://user-images.githubusercontent.com/96197101/229280785-80a3bd62-65f8-437a-936a-27fdf291c59f.png)
+
+Then this function executes SQL query that was created before and assigns value to my_user and other_user based on colum "kind".
+Then depends on what value of variable mode it needs to craete new message_group or update exsiting one.
+
+![image](https://user-images.githubusercontent.com/96197101/229280843-68242113-43d1-4104-bbb4-1ff13d52b98e.png)
+
+In app.py function takes values from MessageForm.js response and if message_group_id is None new messsage group is created and otherwise exisiting message group is updated.
+
+![image](https://user-images.githubusercontent.com/96197101/229281091-6099913d-87e1-4bcd-8c6f-d0840e8215fa.png)
+
+Create new page for creation of new conversation. 
+
+![image](https://user-images.githubusercontent.com/96197101/229284559-c0e4fa01-88cb-42cb-b3a5-261e968c4679.png)
+
+In this new page we need to load data about user and message group.
+
+![image](https://user-images.githubusercontent.com/96197101/229285017-93fe2783-ad5a-4b16-a91b-74c7d06331b7.png)
+
+![image](https://user-images.githubusercontent.com/96197101/229285054-02980fcc-9221-42c1-b158-51a76fdfd142.png)
+
+In order to load user data create a SQL query that return taht data.
+
+![image](https://user-images.githubusercontent.com/96197101/229285140-0d55ec52-98b8-4767-abee-0b2fff8a6f3b.png)
+
+Create services/user_short.py that executes this query and return user data.
+
+![image](https://user-images.githubusercontent.com/96197101/229285178-44a848f5-f063-41e6-b862-9377a6689655.png)
+
+In app.py add enpoint for user short to return user data.
+
+![image](https://user-images.githubusercontent.com/96197101/229285218-afa0011a-32d7-4383-9278-159855d18640.png)
+
+To create a item that we can click and enter the message group we need to create new file components/MessageGroupNewItem.js
+
+![image](https://user-images.githubusercontent.com/96197101/229285394-13514c72-600b-4d9e-b58d-eea3d0be493a.png)
+
+In MessageGroupFeed.js we need to add this new item.
+
+![image](https://user-images.githubusercontent.com/96197101/229285465-4f2cf8b9-cb74-4605-9d48-8b21bde8edda.png)
+
+To redirect to proper page after creation of new message group we need to add rhis if else statement.
+
+![image](https://user-images.githubusercontent.com/96197101/229285657-f9646631-5a0d-4313-9fb4-cbd2bb2ffea7.png)
+
+In ddb.py create new method that creates a message group in in table "cruddur-messages" of dynamodb database.
+
+![image](https://user-images.githubusercontent.com/96197101/229285753-eebdd367-7960-40db-83b9-f26bd1393cbf.png)
+![image](https://user-images.githubusercontent.com/96197101/229285757-de149684-491f-497b-b66b-d9e1d5cc4272.png)
+
+And when I go to /messages/new/adamlisicki page as Andrew Brown is logged in the message group is created and it is redirected to correct page with message_group_uuid.
+
+![image](https://user-images.githubusercontent.com/96197101/229285927-ff660529-73f9-46db-a9d6-1058faa7fa76.png)
+
+
+When I log in as Adam Lisicki I can see new message group and message from Andrew Brown.
+
+![image](https://user-images.githubusercontent.com/96197101/229285991-be9176e4-855f-457f-950b-cc666df65d75.png)
+
+
+
+
+
+
+
+
+
+
+
 
 
