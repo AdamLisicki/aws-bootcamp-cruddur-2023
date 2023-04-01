@@ -228,11 +228,44 @@ When I log in as Adam Lisicki I can see new message group and message from Andre
 ![image](https://user-images.githubusercontent.com/96197101/229285991-be9176e4-855f-457f-950b-cc666df65d75.png)
 
 
+## Implement (Pattern E) Updating a Message Group using DynamoDB Streams
+
+Update schema-load file: add one atribute and global secondary indexes.
+
+![image](https://user-images.githubusercontent.com/96197101/229306033-89011235-8759-43ed-9504-3ed0ef328a68.png)
+
+Then run this script with "prod" parametr to create DynamoDB table in AWS.
+
+![image](https://user-images.githubusercontent.com/96197101/229306186-8432be33-bbf6-41cb-a91c-160344c078a3.png)
+
+Enable DynamoDB Stream with 'new image' attributes included
+
+![image](https://user-images.githubusercontent.com/96197101/229306217-d8f1e9b9-632f-4c7f-a4ef-49978ab3fd71.png)
+
+Create Lambda function.
+
+![image](https://user-images.githubusercontent.com/96197101/229306257-e1c0d7d6-d29a-409e-90c1-636f993ce67a.png)
+
+Grant the lambda IAM role permission to read and update the DynamoDB stream events.
+
+![image](https://user-images.githubusercontent.com/96197101/229306359-f344e7ef-20b3-494d-940d-4e642762ecac.png)
+
+![image](https://user-images.githubusercontent.com/96197101/229306370-3947facb-0ecd-4f39-8e16-60bb8af2a1c1.png)
+
+Create a VPC endpoint for dynamoDB service.
+
+![image](https://user-images.githubusercontent.com/96197101/229306399-91dece9c-7343-441d-91a4-f7b6919e5dc4.png)
+
+Add function as a trigger on the stream
+
+![image](https://user-images.githubusercontent.com/96197101/229306436-37b90a19-4ccb-407a-9603-72f80b118cc0.png)
 
 
+And updating value in our pane with our message group is working correctly.
 
+![image](https://user-images.githubusercontent.com/96197101/229306493-e280be54-8eb3-4cfb-acde-60baca9b3102.png)
 
-
+![image](https://user-images.githubusercontent.com/96197101/229306505-94bc1840-4faa-4e39-90d4-8ec4557e4c1c.png)
 
 
 
