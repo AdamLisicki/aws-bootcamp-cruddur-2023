@@ -6,5 +6,5 @@ BIN_PATH=$(dirname $FRONTEND_PATH)
 PROJECT_PATH=$(dirname $BIN_PATH)
 TASK_DEF_PATH="$PROJECT_PATH/aws/task-definitions/frontend-react-js.json"
 
-aws ecs register-task-definition \ 
+aws ecs register-task-definition \
 --cli-input-json "file://$TASK_DEF_PATH"
