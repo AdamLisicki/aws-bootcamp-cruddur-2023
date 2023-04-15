@@ -354,10 +354,93 @@ api.cruddur.pl redirects to backend-flask.
 
 ![image](https://user-images.githubusercontent.com/96197101/229635660-2d664b1d-77c4-4a37-88f2-9895857a79b3.png)
 
+## Secure Flask by not running in debug mode
+
+Add to CMD in Dockerfile.prod in backend-flask --no-debug --no-debugger --no-reload. 
+
+--no-debug: Disables the debug mode of the Flask application. When debug mode is enabled, Flask will display detailed error messages with a traceback in case of an exception. However, this can also be a security risk, as it can expose sensitive information about the application.
+
+--no-debugger: Disables the interactive debugger that is included in the development server. The debugger allows you to step through the code and inspect variables at runtime, which can be very useful for debugging. However, this can also be a security risk, as it allows attackers to execute arbitrary code on the server.
+
+--no-reload: Disables automatic reloading of the Flask application when code changes are detected. By default, Flask will automatically reload the application when changes are made to the code. This can be useful during development, as it eliminates the need to manually restart the server after every change. However, it can also be a performance issue in some cases, as the reloading process can slow down the development server.
+
+![image](https://user-images.githubusercontent.com/96197101/232250585-32322c1a-4cbb-4616-8aa9-9ed3faa275ea.png)
 
 
+## Implement Refresh Token for Amazon Cognito
+
+Function getAccessToken() retrieves the access token for the currently signed-in user and stores it in the browser's local storage using localStorage.setItem().
+
+Function checkAuth()checks if the user is authenticated and retrieves the user's display name and handle (preferred username) by calling Auth.currentAuthenticatedUser(). If the user is authenticated, it then retrieves the user's session information (which includes the access token) using Auth.currentSession() and stores the access token in the browser's local storage using localStorage.setItem(). 
+
+![image](https://user-images.githubusercontent.com/96197101/232250822-6bb6958c-a609-49f9-95f0-d58effa42e92.png)
 
 
+## Refactor bin directory to be top level
 
+![image](https://user-images.githubusercontent.com/96197101/232251223-c9e7320d-8e0a-4974-85fd-b4cd628d2e38.png)
+
+Example of shell script that sets some variables based on the location of the current script and some directories relative to it.
+
+![image](https://user-images.githubusercontent.com/96197101/232251285-bedf35e4-42ce-40c4-af2e-173f6f13406c.png)
+
+## Configure task defintions to contain x-ray and turn on Container Insights
+
+backend-flask.json
+
+![image](https://user-images.githubusercontent.com/96197101/232251333-5d963f77-b35f-4841-8eca-e74771577d4e.png)
+
+frontend-react-js.json
+
+![image](https://user-images.githubusercontent.com/96197101/232251348-571c02ce-282e-4536-a1e9-443e54a5a12d.png)
+
+This code is defining a container named "xray" in an ECS task definition. The container is using an image named "public.ecr.aws/xray/aws-xray-daemon". The "essential" field is set to true, which means that if this container fails, the entire task will fail. The "user" field is set to "1337", which specifies the user that the container process will run as.
+
+The container also has a port mapping defined in the "portMappings" field. This is specifying that traffic received on port 2000 using the UDP protocol will be forwarded to the container. The name "xray" is given to the port mapping for easier identification.
+
+
+Turn on Container Insights.
+
+![image](https://user-images.githubusercontent.com/96197101/232251434-169e8663-4c3d-469b-add9-6534cb49e6a5.png)
+
+## Change Docker Compose to explicitly use a user-defined network
+
+This code defines a network named "cruddur-net" using the "bridge" driver.
+
+The "bridge" driver is a built-in driver that allows containers to communicate with each other and with the host machine using the same network interface. This is the default network driver for Docker containers.
+
+The "name" attribute is optional and provides a user-defined name for the network. If no name is provided, Docker will automatically generate a unique name for the network.
+
+Defining a network in a Docker Compose file allows multiple containers to communicate with each other using the same network, which can be useful for creating microservices architectures or for isolating different parts of an application.
+
+![image](https://user-images.githubusercontent.com/96197101/232251527-d2547f14-38d3-44c8-92f9-3deb28eb81b3.png)
+
+The "networks" attribute specifies that the "db" container should be connected to the "cruddur-net" network that was defined in the Docker Compose file.
+
+![image](https://user-images.githubusercontent.com/96197101/232251532-be686da0-f8f1-4752-a5b5-2981bfba699e.png)
+
+
+## Using ruby generate out env dot files for docker using erb templates
+
+generate-env for backend
+
+![image](https://user-images.githubusercontent.com/96197101/232251583-91380540-5be6-4665-85ea-6533e9498155.png)
+
+erb file for backend
+
+![image](https://user-images.githubusercontent.com/96197101/232251616-788247a0-1e0a-404b-ad40-8f57c4f50cee.png)
+
+
+generate-env for frontend
+
+![image](https://user-images.githubusercontent.com/96197101/232251589-9698fee9-499b-46ec-95f7-c5afbfe09ce9.png)
+
+erb file for frontend 
+
+![image](https://user-images.githubusercontent.com/96197101/232251621-4ddada9a-7c31-4789-9434-a141c2d5751f.png)
+
+This script reads the contents of a file named "erb/backend-flask.env.erb", which is an ERB template file. The script then evaluates the template using the Ruby ERB library, which replaces any embedded Ruby code within the template with the output of that code.
+
+The resulting output is then written to a new .env file for backend and frontend.
 
 
