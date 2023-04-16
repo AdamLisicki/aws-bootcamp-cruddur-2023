@@ -1,1 +1,155 @@
 # Week 8 — Serverless Image Processing
+
+## Implement CDK Stack
+
+Create a new directory.
+
+![image](https://user-images.githubusercontent.com/96197101/232309067-d8341912-8842-415e-a224-618ec2756f51.png)
+
+
+ Install AWS CDK. 
+ 
+ ```
+ npm install aws-cdk -g
+```
+
+Go to the newly created directory and run the command below to initialize a new CDK project.
+
+```
+cdk init app --language typescript
+```
+
+Create a method that import existing bucket.
+
+The code defines a function that returns an Amazon S3 bucket instance created from the given bucket name and adds it to an AWS CloudFormation or AWS CDK stack.
+
+![image](https://user-images.githubusercontent.com/96197101/232309343-eb06b746-3630-4551-9f3b-6ea028d02aef.png)
+
+
+Create a method that create a new lambda function.
+
+This code defines a function named createLambda that takes four string parameters: functionPath, bucketName, folderInput, and folderOutput.
+
+The runtime parameter specifies that the Lambda function will run on Node.js version 18.x.
+
+The handler parameter specifies the name of the file and function that will handle the Lambda function's events. In this case, the index.js file's handler function will handle the events.
+
+The code parameter specifies the location of the code for the Lambda function.
+
+The environment parameter defines the Lambda function's environment variables. These variables include the destination S3 bucket name (DEST_BUCKET_NAME), the input folder for processing (FOLDER_INPUT), the output folder for the processed images (FOLDER_OUTPUT), and the desired width and height of the processed images (PROCESS_WIDTH and PROCESS_HEIGHT).
+
+The function returns the created lambdaFunction object, which can be used to further configure and deploy the Lambda function.
+
+![image](https://user-images.githubusercontent.com/96197101/232309879-18521afb-4bb7-49ba-9a84-38be186bc565.png)
+
+Create methods that create SNS Topic and SNS Subscription.
+
+The first method createSnsTopic takes a string parameter topicName and creates an Amazon SNS topic using the AWS CDK's sns.Topic class. 
+
+The second method createSnsSubscription takes two parameters: an snsTopic object and a webhookUrl string. It creates an SNS subscription to the specified snsTopic using the addSubscription method on the snsTopic object. The subscription type is set to UrlSubscription, which sends notifications to a webhook URL.
+
+![image](https://user-images.githubusercontent.com/96197101/232310134-76fa14e2-f5cc-4d48-8563-ea2867c455a8.png)
+
+Create two methods that create Event Notification for Lambda and SNS.
+
+The createS3NotifyToLambda method takes three parameters: prefix as a string, an lambda object representing an AWS Lambda function, and a bucket object representing an Amazon S3 bucket.
+
+The function adds an event notification configuration to the bucket object using the addEventNotification method. The configuration specifies that when an object is created and put in the S3 bucket with the given prefix, a notification event will be sent to the specified lambda object.
+
+The createS3NotifyToSns method takes three parameters: prefix as a string, an snsTopic object representing an Amazon SNS topic, and a bucket object representing an Amazon S3 bucket.
+
+The function adds an event notification configuration to the bucket object using the addEventNotification method. The configuration specifies that when an object is created and put in the S3 bucket with the given prefix, a notification event will be sent to the specified snsTopic object.
+
+![image](https://user-images.githubusercontent.com/96197101/232311115-f746f3b1-d43b-4c5b-80e5-126ceefc068f.png)
+
+
+Create a method that craete a policy for lambda so it can Get and Put objects.
+
+The policy statement allows for the s3:GetObject and s3:PutObject actions to be performed on any object within the specified S3 bucket (represented by the bucketArn parameter).
+
+![image](https://user-images.githubusercontent.com/96197101/232312370-a1313971-879f-4b7f-801d-d03bbbcb68db.png)
+
+Now we can call each of the functions and add them to our CDK stack.
+
+![image](https://user-images.githubusercontent.com/96197101/232312491-0293fd87-7c8f-4140-8668-5b368a3590c3.png)
+
+Run command below to set up the necessary infrastructure to store and deploy your application assets 
+
+The cdk bootstrap command is used to set up the AWS resources required to deploy your AWS CDK (Cloud Development Kit) application. When you run this command, the AWS CDK CLI (Command Line Interface) will create a new Amazon S3 bucket in your AWS account, and it will use this bucket to store your CDK application assets.
+
+```
+cdk bootstrap "aws://$AWS_ACCOUNT_ID/$AWS_DEFAULT_REGION"
+```
+Create a env vars file.
+
+![image](https://user-images.githubusercontent.com/96197101/232312648-959ddeec-443a-42c1-81eb-703a8f8434d4.png)
+
+
+All of imports that our code needs.
+
+![image](https://user-images.githubusercontent.com/96197101/232312671-c25fd867-f84f-4c63-9454-c7ff69047e82.png)
+
+
+Create a lambda code.
+
+Create Node.js module that exports four functions.
+
+1. getClient(): This function creates a new S3Client instance from the AWS SDK for JavaScript v3 and returns it. The S3Client is used to interact with an S3 bucket in the AWS account.
+2. getOriginalImage(client, srcBucket, srcKey): This function takes in an S3Client instance, a source S3 bucket name, and a source S3 object key. It returns a buffer that contains the original image retrieved from the source S3 bucket and object key specified. The function uses the GetObjectCommand from the AWS SDK to get the S3 object, and then uses the response.Body property to read the S3 object stream.
+3. processImage(image, width, height): This function takes in an image buffer, a width, and a height. It uses the sharp library to resize and compress the image. It then returns a new buffer that contains the processed image.
+4. uploadProcessedImage(client, dstBucket, dstKey, image): This function takes in an S3Client instance, a destination S3 bucket name, a destination S3 object key, and a buffer containing the processed image. It uses the PutObjectCommand from the AWS SDK to upload the processed image buffer to the destination S3 bucket and object key specified.
+
+![image](https://user-images.githubusercontent.com/96197101/232312737-9374fad6-7cf8-46f9-adac-967d84ad2463.png)
+
+ This code defines an AWS Lambda function that performs image processing on S3 objects and uploads the processed images to another S3 bucket.
+
+![image](https://user-images.githubusercontent.com/96197101/232312839-2b0fe395-c65a-4920-8ece-af13c26f05f2.png)
+
+
+package.json file for lambda function.
+
+![image](https://user-images.githubusercontent.com/96197101/232313404-d797f5ee-917f-4936-afc2-20d20608855c.png) 
+
+Run "npm install" in the lambda directory.
+
+Create a bash script that install all dependencies for the CDK project.
+
+![image](https://user-images.githubusercontent.com/96197101/232313535-5271801c-e390-4af1-9ec8-1e842e073ed2.png)
+
+In the our project folder we can run "cdk deploy" to deploy our CDK stack.
+
+Create a bash script for uploading an image to our S3 bucket.
+
+![image](https://user-images.githubusercontent.com/96197101/232313998-a0e7215d-0840-4580-889a-b7773dccaf1a.png)
+
+Create a bash script for deleting an image to our S3 bucket.
+
+![image](https://user-images.githubusercontent.com/96197101/232314008-111efd0a-2801-400d-a3a0-b01a3d7a5e42.png)
+
+Upload file to our repo.
+
+![image](https://user-images.githubusercontent.com/96197101/232314069-7e544f72-44c1-44b4-8576-017b66eddfe2.png)
+
+And upload it to our S3 bucket using the bash script.
+
+![image](https://user-images.githubusercontent.com/96197101/232314092-04015961-0e2a-41bb-9ecd-6ab74788e714.png)
+
+An image has beed uploaded to avatars/original directory.
+
+![image](https://user-images.githubusercontent.com/96197101/232314126-42ead005-c1a0-49c6-ac82-d9a57fe2bef8.png)
+
+And then processed by lambda function and put into avatars/processed directory.
+
+![image](https://user-images.githubusercontent.com/96197101/232314172-a1c10fd3-0c49-4a3b-ad15-6b6cc3946f9b.png)
+
+
+
+
+
+
+
+
+
+
+
+
