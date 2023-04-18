@@ -40,6 +40,10 @@ tasks:
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
+  - name: docker
+    before: |
+      "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
+
   # - name: db-commands
   #   command: |
   #     export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/db
