@@ -143,6 +143,26 @@ And then processed by lambda function and put into avatars/processed directory.
 ![image](https://user-images.githubusercontent.com/96197101/232314172-a1c10fd3-0c49-4a3b-ad15-6b6cc3946f9b.png)
 
 
+## Serve Avatars via CloudFront
+
+Created CloudFront for S3 assets.cruddur.pl
+
+![image](https://user-images.githubusercontent.com/96197101/232782905-abcc8c23-21d2-4079-8de1-928f5a6feb41.png)
+
+![image](https://user-images.githubusercontent.com/96197101/232783088-f64b6484-4e12-459a-a34b-f167480fe07e.png)
+
+Add entry to Route53.
+
+![image](https://user-images.githubusercontent.com/96197101/232783263-6ca1a2ab-5d99-464d-82a8-5917a70ab956.png)
+
+Add plicy to S3 bucket.
+
+![image](https://user-images.githubusercontent.com/96197101/232783454-36f4cdb8-7a7a-418a-9178-4d921fb77ac0.png)
+
+And image is visible on https://assets.cruddur.pl/avatars/data.jpg
+
+![image](https://user-images.githubusercontent.com/96197101/232783535-fe5008e0-2d59-4573-9a3a-5bc359da79e2.png)
+
 
 
 
