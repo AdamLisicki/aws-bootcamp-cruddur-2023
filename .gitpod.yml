@@ -7,6 +7,7 @@ tasks:
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
+      "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
       cd $THEIA_WORKSPACE_ROOT
   - name: react-js
     command: |
@@ -40,9 +41,9 @@ tasks:
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
-  - name: docker
-    before: |
-      "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
+  # - name: docker
+  #   before: |
+      
 
   # - name: db-commands
   #   command: |
