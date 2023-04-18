@@ -164,6 +164,44 @@ And image is visible on https://assets.cruddur.pl/avatars/data.jpg
 ![image](https://user-images.githubusercontent.com/96197101/232783535-fe5008e0-2d59-4573-9a3a-5bc359da79e2.png)
 
 
+## Implement Users Profile Page
+
+Update UserFeedPage.js
+
+![image](https://user-images.githubusercontent.com/96197101/232796526-e377759d-5c03-4cde-91c1-0307053ecfc0.png)
+
+
+Create a new component ProfileHeading.js
+
+![image](https://user-images.githubusercontent.com/96197101/232796909-2a49c897-eab5-4ff6-b83f-7fb37474b242.png)
+
+Set up CSS for ProfileHeading.js
+
+![image](https://user-images.githubusercontent.com/96197101/232797063-fe3b19b2-e154-4e3c-8a24-e7ae462cedae.png)
+
+Create a new component EditProfileButton.js
+
+![image](https://user-images.githubusercontent.com/96197101/232797251-16b59a7c-d498-41ce-ac0b-15300eb4bd92.png)
+
+Set up CSS for EditProfileButton.js
+
+![image](https://user-images.githubusercontent.com/96197101/232797333-be650480-8ca8-490d-8bdc-1db41c42fb21.png)
+
+Modify ActivityFeed.js component.
+
+![image](https://user-images.githubusercontent.com/96197101/232797666-9ea040fd-6752-48c1-9f98-ab8369553dc3.png)
+
+Modify user_activities.py service.
+
+![image](https://user-images.githubusercontent.com/96197101/232797891-b9169644-6e0b-4cf6-bceb-a46ba555e3c3.png)
+
+Create sql query show.sql
+
+![image](https://user-images.githubusercontent.com/96197101/232798299-14760d9e-21a2-4f7d-8a3b-f309f8c66fd3.png)
+
+
+
+
 
 
 
