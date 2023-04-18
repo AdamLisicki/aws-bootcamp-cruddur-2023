@@ -170,10 +170,14 @@ Update UserFeedPage.js
 
 ![image](https://user-images.githubusercontent.com/96197101/232796526-e377759d-5c03-4cde-91c1-0307053ecfc0.png)
 
-
 Create a new component ProfileHeading.js
 
 ![image](https://user-images.githubusercontent.com/96197101/232796909-2a49c897-eab5-4ff6-b83f-7fb37474b242.png)
+
+Upload banner image to assets.cruddur.pl bucket.
+
+![image](https://user-images.githubusercontent.com/96197101/232802095-019540fb-d0a1-4636-9f94-9ab61773345a.png)
+
 
 Set up CSS for ProfileHeading.js
 
@@ -199,7 +203,9 @@ Create sql query show.sql
 
 ![image](https://user-images.githubusercontent.com/96197101/232798299-14760d9e-21a2-4f7d-8a3b-f309f8c66fd3.png)
 
+Go to the profile tab.
 
+![image](https://user-images.githubusercontent.com/96197101/232801805-0c46932f-65fb-4304-82b7-6c03b611b257.png)
 
 
 
