@@ -16,7 +16,7 @@ cd $DB_PATH
 ./schema-load
 ./seed
 python ./update_cognito_user_ids
-./migrate
+python ./migrate
 
 cd $DDB_PATH
 python ./schema-load
