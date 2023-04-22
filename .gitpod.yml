@@ -7,10 +7,11 @@ tasks:
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
+      "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
       cd $THEIA_WORKSPACE_ROOT
   - name: react-js
     command: |
-      source "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"
+      ruby "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"
       cd frontend-react-js
       npm i
   - name: postgres
@@ -24,7 +25,7 @@ tasks:
       source "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
   - name: flask
     command: |
-      source "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
+      ruby "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
       cd backend-flask
       pip install -r requirements.txt
   - name: fargate
@@ -40,6 +41,10 @@ tasks:
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
+  # - name: docker
+  #   before: |
+      
+
   # - name: db-commands
   #   command: |
   #     export PATH=$PATH:/workspace/aws-bootcamp-cruddur-2023/backend-flask/bin/db
