@@ -588,7 +588,7 @@ migration = AddBioColumnMigration
 
 Write two bash scripts one for migration and one for rollback.
 
-migrate bash sript
+migrate bash script
 
 ```bash
 #!/usr/bin/env python3
