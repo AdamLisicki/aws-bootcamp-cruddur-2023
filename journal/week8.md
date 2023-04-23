@@ -431,3 +431,274 @@ Import this CSS file to App.js.
 import './components/Popup.css';
 ```
 
+Create service for updating a profile information in a database.
+
+```python
+from lib.db import db
+
+class UpdateProfile:
+  def run(cognito_user_id,bio,display_name):
+    model = {
+      'errors': None,
+      'data': None
+    }
+
+    if display_name == None or len(display_name) < 1:
+      model['errors'] = ['display_name_blank']
+
+    if model['errors']:
+      model['data'] = {
+        'bio': bio,
+        'display_name': display_name
+      }
+    else:
+      handle = UpdateProfile.update_profile(bio,display_name,cognito_user_id)
+      data = UpdateProfile.query_users_short(handle)
+      model['data'] = data
+    return model
+
+  def update_profile(bio,display_name,cognito_user_id):
+    if bio == None:    
+      bio = ''
+
+    sql = db.template('users','update')
+    handle = db.query_commit(sql,{
+      'cognito_user_id': cognito_user_id,
+      'bio': bio,
+      'display_name': display_name
+    })
+  def query_users_short(handle):
+    sql = db.template('users','short')
+    data = db.query_object_json(sql,{
+      'handle': handle
+    })
+    return data
+```
+
+Import this service to app.py file.
+
+```python
+from services.update_profile import *
+```
+
+Write an endpoint for updating user profile.
+
+```python
+@app.route("/api/profile/update", methods=['POST','OPTIONS'])
+@cross_origin()
+def data_update_profile():
+  bio          = request.json.get('bio',None)
+  display_name = request.json.get('display_name',None)
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    cognito_user_id = claims['sub']
+    model = UpdateProfile.run(
+      cognito_user_id=cognito_user_id,
+      bio=bio,
+      display_name=display_name
+    )
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
+  except TokenVerifyError as e:
+    # unauthenicatied request
+    app.logger.debug(e)
+    return {}, 401
+```
+
+### Implement Backend Migrations
+
+Write a file that generate a migration file.
+
+```bash
+#!/usr/bin/env python3
+import time
+import os
+import sys
+
+if len(sys.argv) == 2:
+  name = sys.argv[1]
+else:
+  print("pass a filename: eg. ./bin/generate/migration add_bio_column")
+  exit(0)
+
+timestamp = str(time.time()).replace(".","")
+
+filename = f"{timestamp}_{name}.py"
+
+klass = name.replace('_', ' ').title().replace(' ','')
+
+file_content = f"""
+from lib.db import db
+class {klass}Migration:
+  def migrate_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+  def rollback_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+  def migrate():
+    db.query_commit({klass}Migration.migrate_sql(),{{
+    }})
+    
+  def rollback():
+    db.query_commit({klass}Migration.rollback_sql(),{{
+    }})
+migration = AddBioColumnMigration
+"""
+file_content = file_content.lstrip('\n').rstrip('\n')
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations',filename))
+print(file_path)
+
+with open(file_path, 'w') as f:
+  f.write(file_content)
+```
+
+After generating a migration file we need to add SQL queries that creates a table and delete this table to generated migration file.
+
+```python
+from lib.db import db
+
+class AddBioColumnMigration:
+  def migrate_sql():
+    data = """
+    ALTER TABLE public.users ADD COLUMN bio text;
+    """
+    return data
+  def rollback_sql():
+    data = """
+    ALTER TABLE public.users DROP COLUMN bio;
+    """
+    return data
+  def migrate():
+    db.query_commit(AddBioColumnMigration.migrate_sql(),{
+    })
+  def rollback():
+    db.query_commit(AddBioColumnMigration.rollback_sql(),{
+    })
+
+migration = AddBioColumnMigration
+```
+
+Write two bash scripts one for migration and one for rollback.
+
+migrate bash sript
+
+```bash
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+  sql = """
+      SELECT last_successful_run
+      FROM public.schema_information
+      LIMIT 1
+  """
+  return int(db.query_value(sql,{},verbose=False))
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value},verbose=False)
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
+
+
+for migration_file in migration_files:
+  filename = os.path.basename(migration_file)
+  module_name = os.path.splitext(filename)[0]
+  match = re.match(r'^\d+', filename)
+  if match:
+    file_time = int(match.group())
+    if last_successful_run <= file_time:
+      mod = importlib.import_module(module_name)
+      print('=== running migration: ',module_name)
+      mod.migration.migrate()
+      timestamp = str(time.time()).replace(".","")
+      last_successful_run = set_last_successful_run(timestamp)
+```
+
+
+rollback bash script
+
+```bash
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+  sql = """
+      SELECT last_successful_run
+      FROM public.schema_information
+      LIMIT 1
+  """
+  return int(db.query_value(sql,{},verbose=False))
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value})
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
+
+
+last_migration_file = None
+for migration_file in migration_files:
+  if last_migration_file == None:
+    filename = os.path.basename(migration_file)
+    module_name = os.path.splitext(filename)[0]
+    match = re.match(r'^\d+', filename)
+    if match:
+      file_time = int(match.group())
+      if last_successful_run > file_time:
+        last_migration_file = module_name
+        mod = importlib.import_module(module_name)
+        print('=== rolling back: ',module_name)
+        mod.migration.rollback()
+        set_last_successful_run(file_time)
+```
+
+
