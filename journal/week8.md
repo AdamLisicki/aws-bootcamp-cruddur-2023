@@ -923,5 +923,13 @@ And in show.sql add to SELECT query that will return cognito_user_uuid from a da
 
 ![image](https://user-images.githubusercontent.com/96197101/233830911-73e472dc-eab4-4d82-8d59-ba9232f8f06a.png)
 
+We also need to set CORS in our S3 bucket where we uploading images.
+
+![image](https://user-images.githubusercontent.com/96197101/233831956-f7623e53-6b8d-4754-91b0-4d8b0a83f707.png)
+
+
+And when we upload an image it shows in our app.
+
+![image](https://user-images.githubusercontent.com/96197101/233831918-b62b2a59-559d-4914-bb77-623e180649d5.png)
 
 
