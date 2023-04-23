@@ -207,13 +207,227 @@ Go to the profile tab.
 
 ![image](https://user-images.githubusercontent.com/96197101/232801805-0c46932f-65fb-4304-82b7-6c03b611b257.png)
 
+## Implement Users Profile Form
 
 
+Write a ProfileForm.js component.
 
+```js
+import './ProfileForm.css';
+import React from "react";
+import process from 'process';
+import {getAccessToken} from 'lib/CheckAuth';
 
+export default function ProfileForm(props) {
+  const [bio, setBio] = React.useState(0);
+  const [displayName, setDisplayName] = React.useState(0);
 
+  React.useEffect(()=>{
+    console.log('useEffects',props)
+    setBio(props.profile.bio);
+    setDisplayName(props.profile.display_name);
+  }, [props.profile])
 
+  const onsubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
+      const res = await fetch(backend_url, {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${access_token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          bio: bio,
+          display_name: displayName
+        }),
+      });
+      let data = await res.json();
+      if (res.status === 200) {
+        setBio(null)
+        setDisplayName(null)
+        props.setPopped(false)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
+  const bio_onchange = (event) => {
+    setBio(event.target.value);
+  }
 
+  const display_name_onchange = (event) => {
+    setDisplayName(event.target.value);
+  }
 
+  const close = (event)=> {
+    console.log('close',event.target)
+    if (event.target.classList.contains("profile_popup")) {
+      props.setPopped(false)
+    }
+  }
+
+  if (props.popped === true) {
+    return (
+      <div className="popup_form_wrap profile_popup" onClick={close}>
+        <form 
+          className='profile_form popup_form'
+          onSubmit={onsubmit}
+        >
+          <div class="popup_heading">
+            <div class="popup_title">Edit Profile</div>
+            <div className='submit'>
+              <button type='submit'>Save</button>
+            </div>
+          </div>
+          <div className="popup_content">
+            <div className="field display_name">
+              <label>Display Name</label>
+              <input
+                type="text"
+                placeholder="Display Name"
+                value={displayName}
+                onChange={display_name_onchange} 
+              />
+            </div>
+            <div className="field bio">
+              <label>Bio</label>
+              <textarea
+                placeholder="Bio"
+                value={bio}
+                onChange={bio_onchange} 
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+```
+This code defines a component named ProfileForm, which renders a form for editing a user profile. The form contains two input fields: a text input field for the display name and a textarea field for the bio. The component receives props as a parameter which contains the profile object that represents the current user's profile. When the component is mounted or the profile object changes, the useEffect hook is called to update the input fields with the values from the profile object. The component also has an onsubmit function that is called when the form is submitted. This function sends a POST request to a backend API endpoint using the fetch function to update the user's profile information. If the API request is successful, the input fields are reset to their initial state, and the setPopped function is called with false to close the popup window that contains the form. The close function is used to close the popup window when the user clicks outside of the form.
+
+Write CSS for the ProfileForm.js
+
+```css
+form.profile_form input[type='text'],
+form.profile_form textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  display: block;
+  outline: none;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  border: solid 1px var(--field-border);
+  background: var(--field-bg);
+  color: #fff;
+}
+
+.profile_popup .popup_content {
+  padding: 16px;
+}
+
+form.profile_form .field.display_name {
+  margin-bottom: 24px;
+}
+
+form.profile_form label {
+  color: rgba(255,255,255,0.8);
+  padding-bottom: 4px;
+  display: block;
+}
+
+form.profile_form textarea {
+  height: 140px;
+}
+
+form.profile_form input[type='text']:hover,
+form.profile_form textarea:focus {
+  border: solid 1px var(--field-border-focus)
+}
+
+.profile_popup button[type='submit'] {
+  font-weight: 800;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: rgba(149,0,255,1);
+  color: #fff;
+}
+```
+
+Add import to ProfileFeedPage.js
+
+```js
+import ProfileForm from 'components/ProfileForm';
+```
+
+Add ProfileForm to ProfileFeedPage.js
+
+```js
+   <ProfileForm 
+          profile={profile}
+          popped={poppedProfile} 
+          setPopped={setPoppedProfile} 
+        />
+```
+
+Write the Popup.css file and delete popup elements from ReplyForm.css.
+
+```css
+.popup_form_wrap {
+    z-index: 100;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 48px;
+    background: rgba(255,255,255,0.1)
+  }
+
+  .popup_form {
+    background: #000;
+    box-shadow: 0px 0px 6px rgba(190, 9, 190, 0.6);
+    border-radius: 16px;
+    width: 600px;
+  }
+
+  .popup_form .popup_heading {
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px rgba(255,255,255,0.4);
+    padding: 16px;
+  }
+
+  .popup_form .popup_heading .popup_title{
+    flex-grow: 1;
+    color: rgb(255,255,255);
+    font-size: 18px;
+
+  }
+```
+
+Import this CSS file to App.js.
+
+```js
+import './components/Popup.css';
+```
 
