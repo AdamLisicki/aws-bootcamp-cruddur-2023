@@ -1,6 +1,6 @@
 # Week 9 — CI/CD with CodePipeline, CodeBuild and CodeDeploy
 
-## Configuring CodeBuild Part 1
+## Configuring CodeBuild
 
 In order to configure CodeBuild we need to write buildspec.yml file that instructs CodeBuild how to build our application.
 When build is completed CodeBuild return artifact imagedefinitions.json that CodeDeploy will use to deploy our application to ECS cluster.
