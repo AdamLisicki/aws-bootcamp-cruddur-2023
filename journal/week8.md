@@ -701,4 +701,227 @@ for migration_file in migration_files:
         set_last_successful_run(file_time)
 ```
 
+## Presigned URL generation via Ruby Lambda
+
+Write a ruby lambda function that is generating a presigned URL.
+
+```ruby
+require 'aws-sdk-s3'
+require 'json'
+require 'jwt'
+
+def handler(event:, context:)
+    puts event
+    if event['routeKey'] == "OPTIONS /{proxy+}"
+        puts({step: 'preflight', message: 'preflight CORS check'}.to_json)
+        { 
+            headers: {
+              "Access-Control-Allow-Headers": "*, Authorization",
+              "Access-Control-Allow-Origin": "https://3000-adamlisicki-awsbootcamp-ojfyeksv3wy.ws-eu95.gitpod.io",
+              "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+            },
+            statusCode: 200
+        }
+    else
+        token = event['headers']['authorization'].split(' ')[1]
+        puts({step: 'presignedurl', access_token: token}.to_json)
+
+        body_hash = JSON.parse(event["body"])
+        extension = body_hash["extension"]
+
+        decoded_token = JWT.decode token, nil, false
+        puts "decoded_token"
+        cognito_user_uuid = decoded_token[0]['sub']
+    
+
+        s3 = Aws::S3::Resource.new
+        bucket_name = ENV["UPLOADS_BUCKET_NAME"]
+        object_key = "#{cognito_user_uuid}.#{extension}"
+    
+        puts({object_key: object_key}.to_json)
+    
+        obj = s3.bucket(bucket_name).object(object_key)
+        url = obj.presigned_url(:put, expires_in: 60 * 5)
+        url # this is the data that will be returned
+        body = {url: url}.to_json
+        { 
+          headers: {
+            "Access-Control-Allow-Headers": "*, Authorization",
+            "Access-Control-Allow-Origin": "https://3000-adamlisicki-awsbootcamp-ojfyeksv3wy.ws-eu95.gitpod.io",
+            "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+          },
+          statusCode: 200, 
+          body: body 
+        }
+    end
+end 
+```
+
+## Create JWT Lambda Layer
+
+We need to create lambda layer in order to get "jwt" package for our ruby lambda.
+
+Write a bash script that creates a JWT lambda layer with "jwt" package.
+
+```bash
+#! /usr/bin/bash
+
+gem i jwt -Ni /tmp/lambda-layers/ruby-jwt/ruby/gems/2.7.0
+cd /tmp/lambda-layers/ruby-jwt
+
+zip -r lambda-layers . -x ".*" -x "*/.*"
+zipinfo -t lambda-layers
+
+aws lambda publish-layer-version \
+  --layer-name jwt \
+  --description "Lambda Layer for JWT" \
+  --license-info "MIT" \
+  --zip-file fileb://lambda-layers.zip \
+  --compatible-runtimes ruby2.7
+```
+
+And then add this layer to our ruby lambda.
+
+![image](https://user-images.githubusercontent.com/96197101/233829967-aea1384d-7ff2-4dc0-aae3-132204286fb5.png)
+
+## HTTP API Gateway with Lambda Authorizer
+
+Upload our lamda authorizer.
+
+This lambda function verifies cognito access token and if it returns isAuthorized: true the API Gateway can execute lambda for generating presigned URL.
+
+![image](https://user-images.githubusercontent.com/96197101/233830037-c0ad12cd-fc3d-444d-af25-7c9c8866cec2.png)
+
+We need to create two routes in API Gateway and both of them integrate with Lambda that generates a presigned URL.
+Only to /key_uplod route we need to add Authorization Lambda.
+
+![image](https://user-images.githubusercontent.com/96197101/233830187-8e0d1115-d8a7-4b6a-897c-2c6a7fb2217d.png)
+
+
+Add to functions to ProfileForm.js.
+s3uploadkey will call API Gateway and generate a presigned URL.
+s3upload will use this URL to upload image to S3 bucket.
+
+```js
+  const s3uploadkey = async (extension)=> {
+    try {
+      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
+      const json = {
+        extension: extension
+      }
+      const res = await fetch(gateway_url, {
+        method: "POST",
+        body: JSON.stringify(json),
+        headers: {
+          'Origin': process.env.REACT_APP_FRONTEND_URL,
+          'Authorization': `Bearer ${access_token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }})
+      let data = await res.json();
+      if (res.status === 200) {
+        return data.url
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const s3upload = async (event)=> {
+    const file = event.target.files[0]
+    const filename = file.name
+    const size = file.size
+    const type = file.type
+    const preview_image_url = URL.createObjectURL(file)
+    console.log('file', file, size, type)
+    const fileparts = filename.split('.')
+    const extension = fileparts[fileparts.length-1]
+    const presignedurl = await s3uploadkey(extension)
+    try {
+      const res = await fetch(presignedurl, {
+        method: "PUT",
+        body: file,
+        headers: {
+          'Content-Type': type
+        }})
+      if (res.status === 200) {
+        
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+```
+
+Add button to select image from our local PC and upload it to s3 bucket.
+
+```js
+<input type="file" name="avatarupload" onChange={s3upload} />
+```
+
+## Render Avatars in App via CloudFront
+
+Create new ClouFront distribution and point it to our S3 backet when we are storing processed avatars.
+
+![image](https://user-images.githubusercontent.com/96197101/233830981-84660da5-1be3-4787-bdc4-fa6511b97d4e.png)
+
+Create a component named ProfileAvatar.js that will get image from CloudFront and set it to user avatar.
+
+```js
+import './ProfileAvatar.css';
+
+export default function ProfileAvatar(props) {
+  const backgroundImage = `url("https://assets.cruddur.pl/avatars/${props.id}.jpg")`;
+  const styles = {
+    backgroundImage: backgroundImage,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
+
+  return (
+    <div 
+      className="profile-avatar"
+      style={styles}
+    ></div>
+  );
+}
+```
+
+To ProfileHeading.js and ProfileInfo.js import this component.
+
+```js
+import ProfileAvatar from '../components/ProfileAvatar';
+```
+
+And pass arguments to that component so correct avatars will be loaded for users.
+
+ProfileHeading.js 
+
+```js
+<ProfileAvatar id={props.user.cognito_user_uuid} />
+```
+
+ProfileInfo.js
+
+```js
+<ProfileAvatar id={props.profile.cognito_user_uuid} />
+```
+
+In CheckAuth.js add cognito_user_id
+
+![image](https://user-images.githubusercontent.com/96197101/233830833-e30dada0-d3f4-4c64-8daa-76f730cf1b14.png)
+
+And in show.sql add to SELECT query that will return cognito_user_uuid from a database.
+
+![image](https://user-images.githubusercontent.com/96197101/233830911-73e472dc-eab4-4d82-8d59-ba9232f8f06a.png)
+
+
 
