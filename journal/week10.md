@@ -219,3 +219,7 @@ This CloudFormation yaml template creates:
   - Internet Gateway
   - Route Table
   - Subnets
+
+Network Layer Diagram
+
+![image](https://user-images.githubusercontent.com/96197101/236686909-ac3ec184-1e6d-445e-a21b-f21bf1337bff.png)
