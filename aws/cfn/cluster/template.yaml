@@ -103,7 +103,7 @@ Resources:
           - Fn::ImportValue:
               !Sub "${NetworkingStack}PublicSubnetIds"
       SecurityGroups:
-        - !Ref ALBSG
+        - !GetAtt ALBSG.GroupId
       LoadBalancerAttributes:
         - Key: routing.http2.enabled
           Value: true
@@ -167,6 +167,9 @@ Resources:
     Properties:
       GroupName: !Sub "${AWS::StackName}AlbSG"
       GroupDescription: Public facing SG for our Cruddur ALB
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 443
