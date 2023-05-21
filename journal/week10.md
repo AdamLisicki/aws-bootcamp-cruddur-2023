@@ -2,7 +2,7 @@
 
 ## CFN For Networking Layer
 
-The CloudFormation template template for networking layer creates:
+The CloudFormation template for networking layer creates:
   - VPC
     - sets DNS hostnames for EC2 instances
     - Only IPV4, IPV6 is disabled
@@ -274,3 +274,23 @@ SubnetPub1RTAssociation:
    - These sections define three resources of type AWS::EC2::SubnetRouteTableAssociation, representing the association between private subnets and a route table.
    - The SubnetId property is set to the logical reference !Ref SubnetPrivX, where X represents the number of the private subnet. This refers to the corresponding private subnet resource created earlier in the CloudFormation template.
    - The RouteTableId property is set to the logical reference !Ref RouteTable, indicating the association will be made with the same route table used for the public subnets.
+
+
+## CFN Cluster Layer
+
+  The CloudFormation template for cluster layer creates:
+  - ECS Fargate Cluster
+  - Application Load Balanacer (ALB)
+    - ipv4 only
+    - internet facing
+    - certificate attached from Amazon Certification Manager (ACM)
+  - ALB Security Group
+  - HTTPS Listerner
+    - send naked domain to frontend Target Group
+    - send api. subdomain to backend Target Group
+  - HTTP Listerner
+    - redirects to HTTPS Listerner
+  - Backend Target Group
+  - Frontend Target Group
+
+
