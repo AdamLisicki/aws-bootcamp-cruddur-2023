@@ -73,23 +73,6 @@ Parameters:
     
 
 Resources:
-  ServiceSG:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupName: !Sub "${AWS::StackName}ServSG"
-      GroupDescription: Security group for Fargate Services for Cruddur
-      VpcId:
-        Fn::ImportValue:
-          !Sub ${NetworkingStack}VpcId
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          SourceSecurityGroupId:
-            Fn::ImportValue:
-              !Sub ${ClusterStack}ALBSecurityGroupId
-          FromPort: 80
-          ToPort: 80
-          Description: ALB HTTP
-
   FargateService:
     Type: AWS::ECS::Service
     Properties:
@@ -113,7 +96,8 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: 'ENABLED'
           SecurityGroups:
-            - !GetAtt ServiceSG.GroupId
+            - Fn::ImportValue:
+                !Sub "${ClusterStack}ServiceSecurityGroupId"
           Subnets:
             Fn::Split:
               - ","
@@ -270,8 +254,4 @@ Resources:
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
 
-Outputs:
-  ServiceSecurityGroupId:
-    Value: !GetAtt ServiceSG.GroupId
-    Export:
-      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
+# Outputs:
