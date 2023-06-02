@@ -30,10 +30,6 @@ env:
     CONTAINER_NAME: backend-flask
     IMAGE_URL: 928597128531.dkr.ecr.us-east-1.amazonaws.com
     REPO_NAME: backend-flask:latest
-  parameter-store:
-    AWS_ACCESS_KEY_ID: "/cruddur/backend-flask/AWS_ACCESS_KEY_ID"
-    AWS_SECRET_ACCESS_KEY: "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"
-    CONNECTION_URL: "/cruddur/backend-flask/CONNECTION_URL"
     
 artifacts:
   files:
