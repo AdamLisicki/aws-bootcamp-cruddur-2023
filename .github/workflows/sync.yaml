@@ -4,6 +4,13 @@ env:
   CI: false
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AUTO_APPROVE: false
+  AWS_DEFAULT_REGION: us-east-1
+  BUILD_DIR: ${{ github.workspace }}/frontend-react-js/build
+  CLOUDFRONT_DISTRUBTION_ID: E8FPS47AJCWON
+  OUTPUT_CHANGESET_PATH: ${{ github.workspace }}/tmp/sync-changeset.json
+  S3_BUCKET: cruddur.pl
+
 
 on:
   push:
@@ -25,7 +32,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: |
-             cd frontend-react-js
+             cd ${{ github.workspace }}/frontend-react-js
              npm i
              npm run build
   deploy:
