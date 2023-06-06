@@ -6,7 +6,7 @@ env:
   SYNC_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AUTO_APPROVE: false
   AWS_DEFAULT_REGION: us-east-1
-  BUILD_DIR: ${{ github.workspace }}/build
+  BUILD_DIR: ${{ github.workspace }}/react-github-actions-build
   CLOUDFRONT_DISTRUBTION_ID: E8FPS47AJCWON
   OUTPUT_CHANGESET_PATH: ${{ github.workspace }}/tmp/sync-changeset.json
   S3_BUCKET: cruddur.pl
@@ -69,6 +69,5 @@ jobs:
         run: bundle install
       - name: Run tests
         run: | 
-          ls ${{ github.workspace }}
-          ls ${{ github.workspace }}/frontend-react-js
+          ls ${{ github.workspace }}/react-github-actions-build
           echo yes | bundle exec rake sync
