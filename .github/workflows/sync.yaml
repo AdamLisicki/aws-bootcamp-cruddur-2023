@@ -35,6 +35,7 @@ jobs:
              cd ${{ github.workspace }}/frontend-react-js
              npm i
              npm run build
+             ls
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
@@ -69,5 +70,6 @@ jobs:
         run: bundle install
       - name: Run tests
         run: | 
-          ls ${{ github.workspace }}/build
+          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/frontend-react-js
           echo yes | bundle exec rake sync
