@@ -19,7 +19,7 @@ on:
     branches: [ prod ]
 
 jobs:
-  build-and-deploy:
+  build:
     name: Statically Build Files
     runs-on: ubuntu-latest
     strategy:
