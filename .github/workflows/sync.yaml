@@ -1,6 +1,7 @@
 name: Sync-Prod-Frontend
 
 env:
+  CI: false
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -30,6 +31,7 @@ jobs:
   deploy:
     name: Sync Static Build to S3 Bucket
     runs-on: ubuntu-latest
+    needs: build
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
