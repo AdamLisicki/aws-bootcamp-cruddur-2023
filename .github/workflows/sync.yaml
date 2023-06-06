@@ -69,5 +69,4 @@ jobs:
         run: bundle install
       - name: Run tests
         run: | 
-          ls ${{ github.workspace }}/react-github-actions-build
           echo yes | bundle exec rake sync
