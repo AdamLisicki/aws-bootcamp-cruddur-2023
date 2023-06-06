@@ -49,10 +49,6 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Get artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: react-github-actions-build
       - name: Checkout
         uses: actions/checkout@v3
       - name: Configure AWS credentials from Test account
@@ -67,6 +63,10 @@ jobs:
           ruby-version: '3.1'
       - name: Install dependencies
         run: bundle install
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-github-actions-build
       - name: Run tests
         run: | 
           echo yes | bundle exec rake sync
