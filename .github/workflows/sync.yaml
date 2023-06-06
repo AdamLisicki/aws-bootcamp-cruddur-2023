@@ -6,7 +6,7 @@ env:
   SYNC_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AUTO_APPROVE: false
   AWS_DEFAULT_REGION: us-east-1
-  BUILD_DIR: ${{ github.workspace }}/frontend-react-js/build
+  BUILD_DIR: ${{ github.workspace }}/react-github-actions-build
   CLOUDFRONT_DISTRUBTION_ID: E8FPS47AJCWON
   OUTPUT_CHANGESET_PATH: ${{ github.workspace }}/tmp/sync-changeset.json
   S3_BUCKET: cruddur.pl
@@ -35,6 +35,11 @@ jobs:
              cd ${{ github.workspace }}/frontend-react-js
              npm i
              npm run build
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-github-actions-build
+          path: ${{ github.workspace }}/frontend-react-js/build
   deploy:
     name: Sync Static Build to S3 Bucket
     runs-on: ubuntu-latest
@@ -58,5 +63,10 @@ jobs:
           ruby-version: '3.1'
       - name: Install dependencies
         run: bundle install
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-github-actions-build
       - name: Run tests
-        run: echo yes | bundle exec rake sync
+        run: | 
+          echo yes | bundle exec rake sync
