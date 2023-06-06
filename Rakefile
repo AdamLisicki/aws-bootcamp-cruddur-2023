@@ -1,6 +1,12 @@
 require 'aws_s3_website_sync'
 require 'dotenv'
 
+puts "== configuration"
+puts "aws_default_region:   #{ENV["AWS_DEFAULT_REGION"]}"
+puts "s3_bucket:            #{ENV["S3_BUCKET"]}"
+puts "distribution_id:      #{ENV["CLOUDFRONT_DISTRUBTION_ID"]}"
+puts "build_dir:            #{ENV["BUILD_DIR"]}"
+
 task :sync do
   puts "sync =="
   AwsS3WebsiteSync::Runner.run(
