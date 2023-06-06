@@ -2,8 +2,8 @@ name: Sync-Prod-Frontend
 
 env:
   CI: false
-  # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  SYNC_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  SYNC_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AUTO_APPROVE: false
   AWS_DEFAULT_REGION: us-east-1
   BUILD_DIR: ${{ github.workspace }}/frontend-react-js/build
@@ -49,8 +49,6 @@ jobs:
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-to-assume: arn:aws:iam::928597128531:role/CrdSyncRole-Role-16WHWVDVU2CUT
           aws-region: us-east-1
       - uses: actions/checkout@v3
