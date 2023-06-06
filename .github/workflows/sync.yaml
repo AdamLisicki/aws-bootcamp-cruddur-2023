@@ -32,7 +32,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: |
+             pwd
              cd ${{ github.workspace }}/frontend-react-js
+             ls
              npm i
              npm run build
   deploy:
@@ -59,4 +61,6 @@ jobs:
       - name: Install dependencies
         run: bundle install
       - name: Run tests
-        run: echo yes | bundle exec rake sync
+        run: | 
+          ls ${{ github.workspace }}/frontend-react-js/build
+          echo yes | bundle exec rake sync
