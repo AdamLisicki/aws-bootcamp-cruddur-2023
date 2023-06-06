@@ -1,0 +1,9 @@
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdSyncRole'
+
+[parameters]
+GitHubOrg = 'AdamLisicki'
+RepositoryName = 'aws-bootcamp-cruddur-2023'
+OIDCProviderArn = ''

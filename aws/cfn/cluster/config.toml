@@ -1,0 +1,8 @@
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdCluster'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:928597128531:certificate/d18c0598-4110-445f-8da4-90cba4d0ca9c'
+NetworkingStack = 'CrdNet'

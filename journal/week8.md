@@ -207,13 +207,729 @@ Go to the profile tab.
 
 ![image](https://user-images.githubusercontent.com/96197101/232801805-0c46932f-65fb-4304-82b7-6c03b611b257.png)
 
+## Implement Users Profile Form
 
 
+Write a ProfileForm.js component.
+
+```js
+import './ProfileForm.css';
+import React from "react";
+import process from 'process';
+import {getAccessToken} from 'lib/CheckAuth';
+
+export default function ProfileForm(props) {
+  const [bio, setBio] = React.useState(0);
+  const [displayName, setDisplayName] = React.useState(0);
+
+  React.useEffect(()=>{
+    console.log('useEffects',props)
+    setBio(props.profile.bio);
+    setDisplayName(props.profile.display_name);
+  }, [props.profile])
+
+  const onsubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
+      const res = await fetch(backend_url, {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${access_token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          bio: bio,
+          display_name: displayName
+        }),
+      });
+      let data = await res.json();
+      if (res.status === 200) {
+        setBio(null)
+        setDisplayName(null)
+        props.setPopped(false)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const bio_onchange = (event) => {
+    setBio(event.target.value);
+  }
+
+  const display_name_onchange = (event) => {
+    setDisplayName(event.target.value);
+  }
+
+  const close = (event)=> {
+    console.log('close',event.target)
+    if (event.target.classList.contains("profile_popup")) {
+      props.setPopped(false)
+    }
+  }
+
+  if (props.popped === true) {
+    return (
+      <div className="popup_form_wrap profile_popup" onClick={close}>
+        <form 
+          className='profile_form popup_form'
+          onSubmit={onsubmit}
+        >
+          <div class="popup_heading">
+            <div class="popup_title">Edit Profile</div>
+            <div className='submit'>
+              <button type='submit'>Save</button>
+            </div>
+          </div>
+          <div className="popup_content">
+            <div className="field display_name">
+              <label>Display Name</label>
+              <input
+                type="text"
+                placeholder="Display Name"
+                value={displayName}
+                onChange={display_name_onchange} 
+              />
+            </div>
+            <div className="field bio">
+              <label>Bio</label>
+              <textarea
+                placeholder="Bio"
+                value={bio}
+                onChange={bio_onchange} 
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+```
+This code defines a component named ProfileForm, which renders a form for editing a user profile. The form contains two input fields: a text input field for the display name and a textarea field for the bio. The component receives props as a parameter which contains the profile object that represents the current user's profile. When the component is mounted or the profile object changes, the useEffect hook is called to update the input fields with the values from the profile object. The component also has an onsubmit function that is called when the form is submitted. This function sends a POST request to a backend API endpoint using the fetch function to update the user's profile information. If the API request is successful, the input fields are reset to their initial state, and the setPopped function is called with false to close the popup window that contains the form. The close function is used to close the popup window when the user clicks outside of the form.
+
+Write CSS for the ProfileForm.js
+
+```css
+form.profile_form input[type='text'],
+form.profile_form textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  display: block;
+  outline: none;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  border: solid 1px var(--field-border);
+  background: var(--field-bg);
+  color: #fff;
+}
+
+.profile_popup .popup_content {
+  padding: 16px;
+}
+
+form.profile_form .field.display_name {
+  margin-bottom: 24px;
+}
+
+form.profile_form label {
+  color: rgba(255,255,255,0.8);
+  padding-bottom: 4px;
+  display: block;
+}
+
+form.profile_form textarea {
+  height: 140px;
+}
+
+form.profile_form input[type='text']:hover,
+form.profile_form textarea:focus {
+  border: solid 1px var(--field-border-focus)
+}
+
+.profile_popup button[type='submit'] {
+  font-weight: 800;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: rgba(149,0,255,1);
+  color: #fff;
+}
+```
+
+Add import to ProfileFeedPage.js
+
+```js
+import ProfileForm from 'components/ProfileForm';
+```
+
+Add ProfileForm to ProfileFeedPage.js
+
+```js
+   <ProfileForm 
+          profile={profile}
+          popped={poppedProfile} 
+          setPopped={setPoppedProfile} 
+        />
+```
+
+Write the Popup.css file and delete popup elements from ReplyForm.css.
+
+```css
+.popup_form_wrap {
+    z-index: 100;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 48px;
+    background: rgba(255,255,255,0.1)
+  }
+
+  .popup_form {
+    background: #000;
+    box-shadow: 0px 0px 6px rgba(190, 9, 190, 0.6);
+    border-radius: 16px;
+    width: 600px;
+  }
+
+  .popup_form .popup_heading {
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px rgba(255,255,255,0.4);
+    padding: 16px;
+  }
+
+  .popup_form .popup_heading .popup_title{
+    flex-grow: 1;
+    color: rgb(255,255,255);
+    font-size: 18px;
+
+  }
+```
+
+Import this CSS file to App.js.
+
+```js
+import './components/Popup.css';
+```
+
+Create service for updating a profile information in a database.
+
+```python
+from lib.db import db
+
+class UpdateProfile:
+  def run(cognito_user_id,bio,display_name):
+    model = {
+      'errors': None,
+      'data': None
+    }
+
+    if display_name == None or len(display_name) < 1:
+      model['errors'] = ['display_name_blank']
+
+    if model['errors']:
+      model['data'] = {
+        'bio': bio,
+        'display_name': display_name
+      }
+    else:
+      handle = UpdateProfile.update_profile(bio,display_name,cognito_user_id)
+      data = UpdateProfile.query_users_short(handle)
+      model['data'] = data
+    return model
+
+  def update_profile(bio,display_name,cognito_user_id):
+    if bio == None:    
+      bio = ''
+
+    sql = db.template('users','update')
+    handle = db.query_commit(sql,{
+      'cognito_user_id': cognito_user_id,
+      'bio': bio,
+      'display_name': display_name
+    })
+  def query_users_short(handle):
+    sql = db.template('users','short')
+    data = db.query_object_json(sql,{
+      'handle': handle
+    })
+    return data
+```
+
+Import this service to app.py file.
+
+```python
+from services.update_profile import *
+```
+
+Write an endpoint for updating user profile.
+
+```python
+@app.route("/api/profile/update", methods=['POST','OPTIONS'])
+@cross_origin()
+def data_update_profile():
+  bio          = request.json.get('bio',None)
+  display_name = request.json.get('display_name',None)
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    cognito_user_id = claims['sub']
+    model = UpdateProfile.run(
+      cognito_user_id=cognito_user_id,
+      bio=bio,
+      display_name=display_name
+    )
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
+  except TokenVerifyError as e:
+    # unauthenicatied request
+    app.logger.debug(e)
+    return {}, 401
+```
+
+### Implement Backend Migrations
+
+Write a file that generate a migration file.
+
+```bash
+#!/usr/bin/env python3
+import time
+import os
+import sys
+
+if len(sys.argv) == 2:
+  name = sys.argv[1]
+else:
+  print("pass a filename: eg. ./bin/generate/migration add_bio_column")
+  exit(0)
+
+timestamp = str(time.time()).replace(".","")
+
+filename = f"{timestamp}_{name}.py"
+
+klass = name.replace('_', ' ').title().replace(' ','')
+
+file_content = f"""
+from lib.db import db
+class {klass}Migration:
+  def migrate_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+  def rollback_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+  def migrate():
+    db.query_commit({klass}Migration.migrate_sql(),{{
+    }})
+    
+  def rollback():
+    db.query_commit({klass}Migration.rollback_sql(),{{
+    }})
+migration = AddBioColumnMigration
+"""
+file_content = file_content.lstrip('\n').rstrip('\n')
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations',filename))
+print(file_path)
+
+with open(file_path, 'w') as f:
+  f.write(file_content)
+```
+
+After generating a migration file we need to add SQL queries that creates a table and delete this table to generated migration file.
+
+```python
+from lib.db import db
+
+class AddBioColumnMigration:
+  def migrate_sql():
+    data = """
+    ALTER TABLE public.users ADD COLUMN bio text;
+    """
+    return data
+  def rollback_sql():
+    data = """
+    ALTER TABLE public.users DROP COLUMN bio;
+    """
+    return data
+  def migrate():
+    db.query_commit(AddBioColumnMigration.migrate_sql(),{
+    })
+  def rollback():
+    db.query_commit(AddBioColumnMigration.rollback_sql(),{
+    })
+
+migration = AddBioColumnMigration
+```
+
+Write two bash scripts one for migration and one for rollback.
+
+migrate bash script
+
+```bash
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+  sql = """
+      SELECT last_successful_run
+      FROM public.schema_information
+      LIMIT 1
+  """
+  return int(db.query_value(sql,{},verbose=False))
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value},verbose=False)
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
 
 
+for migration_file in migration_files:
+  filename = os.path.basename(migration_file)
+  module_name = os.path.splitext(filename)[0]
+  match = re.match(r'^\d+', filename)
+  if match:
+    file_time = int(match.group())
+    if last_successful_run <= file_time:
+      mod = importlib.import_module(module_name)
+      print('=== running migration: ',module_name)
+      mod.migration.migrate()
+      timestamp = str(time.time()).replace(".","")
+      last_successful_run = set_last_successful_run(timestamp)
+```
 
 
+rollback bash script
+
+```bash
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+  sql = """
+      SELECT last_successful_run
+      FROM public.schema_information
+      LIMIT 1
+  """
+  return int(db.query_value(sql,{},verbose=False))
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value})
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
 
 
+last_migration_file = None
+for migration_file in migration_files:
+  if last_migration_file == None:
+    filename = os.path.basename(migration_file)
+    module_name = os.path.splitext(filename)[0]
+    match = re.match(r'^\d+', filename)
+    if match:
+      file_time = int(match.group())
+      if last_successful_run > file_time:
+        last_migration_file = module_name
+        mod = importlib.import_module(module_name)
+        print('=== rolling back: ',module_name)
+        mod.migration.rollback()
+        set_last_successful_run(file_time)
+```
+
+## Presigned URL generation via Ruby Lambda
+
+Write a ruby lambda function that is generating a presigned URL.
+
+```ruby
+require 'aws-sdk-s3'
+require 'json'
+require 'jwt'
+
+def handler(event:, context:)
+    puts event
+    if event['routeKey'] == "OPTIONS /{proxy+}"
+        puts({step: 'preflight', message: 'preflight CORS check'}.to_json)
+        { 
+            headers: {
+              "Access-Control-Allow-Headers": "*, Authorization",
+              "Access-Control-Allow-Origin": "https://3000-adamlisicki-awsbootcamp-ojfyeksv3wy.ws-eu95.gitpod.io",
+              "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+            },
+            statusCode: 200
+        }
+    else
+        token = event['headers']['authorization'].split(' ')[1]
+        puts({step: 'presignedurl', access_token: token}.to_json)
+
+        body_hash = JSON.parse(event["body"])
+        extension = body_hash["extension"]
+
+        decoded_token = JWT.decode token, nil, false
+        puts "decoded_token"
+        cognito_user_uuid = decoded_token[0]['sub']
+    
+
+        s3 = Aws::S3::Resource.new
+        bucket_name = ENV["UPLOADS_BUCKET_NAME"]
+        object_key = "#{cognito_user_uuid}.#{extension}"
+    
+        puts({object_key: object_key}.to_json)
+    
+        obj = s3.bucket(bucket_name).object(object_key)
+        url = obj.presigned_url(:put, expires_in: 60 * 5)
+        url # this is the data that will be returned
+        body = {url: url}.to_json
+        { 
+          headers: {
+            "Access-Control-Allow-Headers": "*, Authorization",
+            "Access-Control-Allow-Origin": "https://3000-adamlisicki-awsbootcamp-ojfyeksv3wy.ws-eu95.gitpod.io",
+            "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+          },
+          statusCode: 200, 
+          body: body 
+        }
+    end
+end 
+```
+
+## Create JWT Lambda Layer
+
+We need to create lambda layer in order to get "jwt" package for our ruby lambda.
+
+Write a bash script that creates a JWT lambda layer with "jwt" package.
+
+```bash
+#! /usr/bin/bash
+
+gem i jwt -Ni /tmp/lambda-layers/ruby-jwt/ruby/gems/2.7.0
+cd /tmp/lambda-layers/ruby-jwt
+
+zip -r lambda-layers . -x ".*" -x "*/.*"
+zipinfo -t lambda-layers
+
+aws lambda publish-layer-version \
+  --layer-name jwt \
+  --description "Lambda Layer for JWT" \
+  --license-info "MIT" \
+  --zip-file fileb://lambda-layers.zip \
+  --compatible-runtimes ruby2.7
+```
+
+And then add this layer to our ruby lambda.
+
+![image](https://user-images.githubusercontent.com/96197101/233829967-aea1384d-7ff2-4dc0-aae3-132204286fb5.png)
+
+## HTTP API Gateway with Lambda Authorizer
+
+Upload our lamda authorizer.
+
+This lambda function verifies cognito access token and if it returns isAuthorized: true the API Gateway can execute lambda for generating presigned URL.
+
+![image](https://user-images.githubusercontent.com/96197101/233830037-c0ad12cd-fc3d-444d-af25-7c9c8866cec2.png)
+
+We need to create two routes in API Gateway and both of them integrate with Lambda that generates a presigned URL.
+Only to /key_uplod route we need to add Authorization Lambda.
+
+![image](https://user-images.githubusercontent.com/96197101/233830187-8e0d1115-d8a7-4b6a-897c-2c6a7fb2217d.png)
+
+
+Add to functions to ProfileForm.js.
+s3uploadkey will call API Gateway and generate a presigned URL.
+s3upload will use this URL to upload image to S3 bucket.
+
+```js
+  const s3uploadkey = async (extension)=> {
+    try {
+      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
+      const json = {
+        extension: extension
+      }
+      const res = await fetch(gateway_url, {
+        method: "POST",
+        body: JSON.stringify(json),
+        headers: {
+          'Origin': process.env.REACT_APP_FRONTEND_URL,
+          'Authorization': `Bearer ${access_token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }})
+      let data = await res.json();
+      if (res.status === 200) {
+        return data.url
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const s3upload = async (event)=> {
+    const file = event.target.files[0]
+    const filename = file.name
+    const size = file.size
+    const type = file.type
+    const preview_image_url = URL.createObjectURL(file)
+    console.log('file', file, size, type)
+    const fileparts = filename.split('.')
+    const extension = fileparts[fileparts.length-1]
+    const presignedurl = await s3uploadkey(extension)
+    try {
+      const res = await fetch(presignedurl, {
+        method: "PUT",
+        body: file,
+        headers: {
+          'Content-Type': type
+        }})
+      if (res.status === 200) {
+        
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+```
+
+Add button to select image from our local PC and upload it to s3 bucket.
+
+```js
+<input type="file" name="avatarupload" onChange={s3upload} />
+```
+
+## Render Avatars in App via CloudFront
+
+Create new ClouFront distribution and point it to our S3 backet when we are storing processed avatars.
+
+![image](https://user-images.githubusercontent.com/96197101/233830981-84660da5-1be3-4787-bdc4-fa6511b97d4e.png)
+
+Create a component named ProfileAvatar.js that will get image from CloudFront and set it to user avatar.
+
+```js
+import './ProfileAvatar.css';
+
+export default function ProfileAvatar(props) {
+  const backgroundImage = `url("https://assets.cruddur.pl/avatars/${props.id}.jpg")`;
+  const styles = {
+    backgroundImage: backgroundImage,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
+
+  return (
+    <div 
+      className="profile-avatar"
+      style={styles}
+    ></div>
+  );
+}
+```
+
+To ProfileHeading.js and ProfileInfo.js import this component.
+
+```js
+import ProfileAvatar from '../components/ProfileAvatar';
+```
+
+And pass arguments to that component so correct avatars will be loaded for users.
+
+ProfileHeading.js 
+
+```js
+<ProfileAvatar id={props.user.cognito_user_uuid} />
+```
+
+ProfileInfo.js
+
+```js
+<ProfileAvatar id={props.profile.cognito_user_uuid} />
+```
+
+In CheckAuth.js add cognito_user_id
+
+![image](https://user-images.githubusercontent.com/96197101/233830833-e30dada0-d3f4-4c64-8daa-76f730cf1b14.png)
+
+And in show.sql add to SELECT query that will return cognito_user_uuid from a database.
+
+![image](https://user-images.githubusercontent.com/96197101/233830911-73e472dc-eab4-4d82-8d59-ba9232f8f06a.png)
+
+We also need to set CORS in our S3 bucket where we uploading images.
+
+![image](https://user-images.githubusercontent.com/96197101/233831956-f7623e53-6b8d-4754-91b0-4d8b0a83f707.png)
+
+
+And when we upload an image it shows in our app.
+
+![image](https://user-images.githubusercontent.com/96197101/233831918-b62b2a59-559d-4914-bb77-623e180649d5.png)
 
 
