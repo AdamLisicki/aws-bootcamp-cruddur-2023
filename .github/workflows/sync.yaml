@@ -35,7 +35,6 @@ jobs:
              cd ${{ github.workspace }}/frontend-react-js
              npm i
              npm run build
-             ls
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
