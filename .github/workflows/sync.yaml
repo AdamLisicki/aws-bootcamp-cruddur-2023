@@ -59,4 +59,4 @@ jobs:
       - name: Install dependencies
         run: bundle install
       - name: Run tests
-        run: bundle exec rake sync
+        run: echo yes | bundle exec rake sync
