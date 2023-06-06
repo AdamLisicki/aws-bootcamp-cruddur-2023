@@ -5,9 +5,6 @@ import DesktopNavigation  from '../components/DesktopNavigation';
 import MessageGroupFeed from '../components/MessageGroupFeed';
 import {checkAuth, getAccessToken} from '../lib/CheckAuth';
 
-// [TODO] Authenication
-import Cookies from 'js-cookie'
-
 export default function MessageGroupsPage() {
   const [messageGroups, setMessageGroups] = React.useState([]);
   const [popped, setPopped] = React.useState([]);

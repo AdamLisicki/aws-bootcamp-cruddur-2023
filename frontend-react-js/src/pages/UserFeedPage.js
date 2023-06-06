@@ -12,7 +12,6 @@ import ProfileForm from 'components/ProfileForm';
 
 // [TODO] Authenication
 import {checkAuth, getAccessToken} from 'lib/CheckAuth';
-import { prependOnceListener } from 'process';
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -23,7 +22,6 @@ export default function UserFeedPage() {
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
-  const title = `@${params.handle}`;
 
   const loadData = async () => {
     try {
