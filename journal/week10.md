@@ -14,6 +14,41 @@ The CloudFormation template for networking layer creates:
     - 3 Public Subnets numbered 1 to 3
     - 3 Private Subnets numbered 1 to 3
 
+config.toml file.
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdNet'
+```
+
+Deployment script. This script uses cfn-toml to get deploy properties and parameters from config.toml file and execute CloudFormation template.
+
+```
+#! /usr/bin/bash
+
+set -e
+
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/config.toml"
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix networking \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-networking \
+  --capabilities CAPABILITY_NAMED_IAM
+```
 
 Describing input parameters for a CFN template.
 
@@ -292,6 +327,47 @@ SubnetPub1RTAssociation:
     - redirects to HTTPS Listerner
   - Backend Target Group
   - Frontend Target Group
+  
+config.toml file.
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdCluster'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:928597128531:certificate/d18c0598-4110-445f-8da4-90cba4d0ca9c'
+NetworkingStack = 'CrdNet'
+```
+
+Deployment script. This script uses cfn-toml to get deploy properties and parameters from config.toml file and execute CloudFormation template.
+
+```
+#! /usr/bin/bash
+
+set -e
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/config.toml"
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix cluster \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-cluster \
+  --parameter-overrides $PARAMETERS \
+  --capabilities CAPABILITY_NAMED_IAM
+```
   
   
   ```
