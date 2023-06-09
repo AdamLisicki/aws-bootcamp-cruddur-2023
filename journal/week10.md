@@ -22,7 +22,7 @@ region = 'us-east-1'
 stack_name = 'CrdNet'
 ```
 
-Deployment script. This script uses cfn-toml to get deploy properties and parameters from config.toml file and execute CloudFormation template.
+Deployment script. This script uses cfn-toml to get properties and parameters from config.toml file and execute CloudFormation template.
 
 ```
 #! /usr/bin/bash
@@ -340,7 +340,7 @@ CertificateArn = 'arn:aws:acm:us-east-1:928597128531:certificate/d18c0598-4110-4
 NetworkingStack = 'CrdNet'
 ```
 
-Deployment script. This script uses cfn-toml to get deploy properties and parameters from config.toml file and execute CloudFormation template.
+Deployment script. This script uses cfn-toml to get properties and parameters from config.toml file and execute CloudFormation template.
 
 ```
 #! /usr/bin/bash
