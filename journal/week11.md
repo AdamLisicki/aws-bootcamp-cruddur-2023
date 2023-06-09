@@ -8,6 +8,45 @@ This CloudFormation tamplate creates:
 - Execution Role
 - Task Role
 
+config.toml
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdSrvBackendFlask'
+```
+
+Deployment script. This script uses cfn-toml to get properties and parameters from config.toml file and execute CloudFormation template.
+
+```
+#! /usr/bin/bash
+
+set -e
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/service/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/service/config.toml"
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+# PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix service \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-backend-flask \
+  --capabilities CAPABILITY_NAMED_IAM
+#   --parameter-overrides $PARAMETERS \
+  
+```
+
+
 Parameters:
 
 ```
@@ -408,6 +447,47 @@ The code defines an output named ServiceName.
  - Database Security Group
  - DBSubnetGroup
 
+config.toml
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdDb'
+
+[parameters]
+NetworkingStack = 'CrdNet'
+ClusterStack = 'CrdCluster'
+MasterUsername = 'cruddurroot'
+```
+
+Deployment script. This script uses cfn-toml to get deploy properties and parameters from config.toml file and execute CloudFormation template.
+
+```
+#! /usr/bin/bash
+
+set -e
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/config.toml"
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix db \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-db \
+  --parameter-overrides $PARAMETERS MasterUserPassword=$DB_PASSWORD \
+  --capabilities CAPABILITY_NAMED_IAM
+```
 
 Parameters
 
@@ -587,6 +667,111 @@ This CloudFormation template code creates a resource named "Database" of type "A
 
 
 # SAM CFN DynamoDB, Lambda
+
+This CloudFormation tempalte creates:
+   - DynamoDB Table
+  - DynamoDB Stream
+
+config.toml
+
+```
+version=0.1
+[default.build.parameters]
+region = "us-east-1"
+
+[default.package.parameters]
+region = "us-east-1"
+
+[default.deploy.parameters]
+region = "us-east-1"
+```
+
+build scirpt:
+  sam build \ ...: This command uses the SAM CLI to build the serverless application. It performs the following actions:
+    --use-container: This flag instructs SAM to use a Docker container for building the application, ensuring consistent and isolated builds.
+    --config-file $CONFIG_PATH: This flag specifies the path to the SAM configuration file.
+    --template $TEMPLATE_PATH: This flag specifies the path to the SAM template file.
+    --base-dir $FUNC_DIR: This flag specifies the base directory where the Lambda functions for the application are located.
+    
+The sam build command essentially compiles the code, resolves dependencies, and prepares the application for deployment.
+
+```
+#! /usr/bin/env bash
+set -e # stop the execution of the script if it fails
+
+FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/ddb/function"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
+
+sam validate -t $TEMPLATE_PATH
+
+echo "== build"
+
+sam build \
+--use-container \
+--config-file $CONFIG_PATH \
+--template $TEMPLATE_PATH \
+--base-dir $FUNC_DIR
+#--parameter-overrides
+```
+
+package script:
+
+sam package \ ...: This command uses the SAM CLI to package the serverless application. It performs the following actions:
+  --s3-bucket $ARTIFACT_BUCKET: This flag specifies the S3 bucket where the packaged artifacts will be stored.
+  --config-file $CONFIG_PATH: This flag specifies the path to the SAM configuration file.
+  --output-template-file $OUTPUT_TEMPLATE_PATH: This flag specifies the path where the packaged SAM template file will be generated.
+  --template-file $TEMPLATE_PATH: This flag specifies the path to the built SAM template file.
+  --s3-prefix "ddb": This flag specifies a prefix to be used when storing artifacts in the S3 bucket. In this case, the prefix is set to "ddb".
+The sam package command takes the built SAM template, resolves dependencies, and generates a packaged template that is ready for deployment. It also uploads the packaged artifacts to the specified S3 bucket.
+
+```
+#! /usr/bin/env bash
+set -e # stop the execution of the script if it fails
+
+ARTIFACT_BUCKET="cfn-artifacts-cruddur"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yaml"
+OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
+
+echo "== package"
+
+sam package \
+  --s3-bucket $ARTIFACT_BUCKET \
+  --config-file $CONFIG_PATH \
+  --output-template-file $OUTPUT_TEMPLATE_PATH \
+  --template-file $TEMPLATE_PATH \
+  --s3-prefix "ddb"
+```
+
+deploy script:
+
+sam deploy \ ...: This command uses the SAM CLI to deploy the serverless application. It performs the following actions:
+  --template-file $PACKAGED_TEMPLATE_PATH: This flag specifies the path to the packaged SAM template file.
+  --config-file $CONFIG_PATH: This flag specifies the path to the SAM configuration file.
+  --stack-name "CrdDdb": This flag specifies the name of the CloudFormation stack to create or update during the deployment. In this case, the stack name is set to "CrdDdb".
+  --tags group=cruddur-ddb: This flag specifies tags to associate with the CloudFormation stack. In this case, a tag with the key "group" and the value "cruddur-ddb" is set.
+  --no-execute-changeset: This flag indicates that the CloudFormation changeset should not be executed immediately. It allows for a manual review of the changes before proceeding with the deployment.
+  --capabilities "CAPABILITY_NAMED_IAM": This flag specifies the capabilities required for the deployment. In this case, the "CAPABILITY_NAMED_IAM" capability is enabled, which allows the creation of named IAM resources during the deployment.
+The sam deploy command uses the packaged SAM template and the provided configuration to create or update the CloudFormation stack associated with the serverless application.
+
+```
+#! /usr/bin/env bash
+set -e # stop the execution of the script if it fails
+
+PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
+
+echo "== deploy"
+
+sam deploy \
+  --template-file $PACKAGED_TEMPLATE_PATH  \
+  --config-file $CONFIG_PATH \
+  --stack-name "CrdDdb" \
+  --tags group=cruddur-ddb \
+  --no-execute-changeset \
+  --capabilities "CAPABILITY_NAMED_IAM"
+```
 
 Parameters
 
@@ -797,6 +982,88 @@ This CloudFormation template creates:
   - CodeStar Connection V2 Github
   - CodePipeline
   - CodeBuild
+
+config.toml
+
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdCicd'
+
+[parameters]
+ServiceStack = 'CrdSrvBackendFlask'
+ClusterStack = 'CrdCluster'
+GitHubBranch = 'prod'
+GithubRepo = 'AdamLisicki/aws-bootcamp-cruddur-2023'
+ArtifactBucketName = "codepipline-artifacts-cruddur"
+```
+
+Deployment script:
+- PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH): This line executes the cfn-toml command to extract the parameters from the configuration file specified by the $CONFIG_PATH variable. The parameters are then stored in the PARAMETERS variable.
+
+- BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH): This line executes the cfn-toml command to extract the value of the deploy.bucket key from the configuration file specified by the $CONFIG_PATH variable. The value is then stored in the BUCKET variable.
+
+- REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH): This line executes the cfn-toml command to extract the value of the deploy.region key from the configuration file. The value represents the AWS region where the deployment will take place, and it is stored in the REGION variable.
+
+- STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH): This line executes the cfn-toml command to extract the value of the deploy.stack_name key from the configuration file. The value represents the name of the CloudFormation stack, and it is stored in the STACK_NAME variable.
+
+- aws cloudformation package \ ...: This command uses the AWS CLI's cloudformation package command to package the CloudFormation template and upload it to an S3 bucket. It performs the following actions:
+  --template-file $CFN_PATH: This flag specifies the path to the original CloudFormation template.
+  --s3-bucket $BUCKET: This flag specifies the name of the S3 bucket where the packaged template will be stored.
+  --s3-prefix cicd-package: This flag specifies a prefix to be used when storing the packaged template in the S3 bucket. In this case, the prefix is set to "cicd-package".
+  --region $REGION: This flag specifies the AWS region for the S3 bucket and the deployment.
+  --output-template-file "$PACKAGED_PATH": This flag specifies the path where the packaged CloudFormation template will be generated.
+
+- aws cloudformation deploy \ ...: This command uses the AWS CLI's cloudformation deploy command to deploy the CloudFormation stack. It performs the following actions:
+  --stack-name $STACK_NAME: This flag specifies the name of the CloudFormation stack.
+  --s3-bucket $BUCKET: This flag specifies the name of the S3 bucket where the packaged template is located.
+  --s3-prefix cicd: This flag specifies a prefix to be used when referencing artifacts in the S3 bucket. In this case, the prefix is set to "cicd".
+  --region $REGION: This flag specifies the AWS region for the deployment.
+  --template-file "$PACKAGED_PATH": This flag specifies the path to the packaged CloudFormation template.
+  --no-execute-changeset: This flag indicates that the CloudFormation changeset should not be executed immediately.
+  --tags group=cruddur-cicd: This flag specifies tags to associate with the CloudFormation stack. In this case, a tag with the key "group" and the value "cruddur-cicd" is set.
+  --parameter-overrides $PARAMETERS: This flag provides the extracted parameters from the configuration file to override any default parameter values.
+  --capabilities CAPABILITY_NAMED_IAM: This flag specifies the capabilities required for the deployment. In this case, the "CAPABILITY_NAMED_IAM" capability is enabled.
+
+
+```
+#! /usr/bin/env bash
+#set -e # stop the execution of the script if it fails
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/config.toml"
+PACKAGED_PATH="/workspace/aws-bootcamp-cruddur-2023/tmp/packaged-template.yaml"
+PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+echo $CFN_PATH
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+
+# package
+# -----------------
+echo "== packaging CFN to S3..."
+aws cloudformation package \
+  --template-file $CFN_PATH \
+  --s3-bucket $BUCKET \
+  --s3-prefix cicd-package \
+  --region $REGION \
+  --output-template-file "$PACKAGED_PATH"
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix cicd \
+  --region $REGION \
+  --template-file "$PACKAGED_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-cicd \
+  --parameter-overrides $PARAMETERS \
+  --capabilities CAPABILITY_NAMED_IAM
+```
 
 Parameters
 
@@ -1023,6 +1290,48 @@ This CloudFormation template creates:
   - S3 bucket for naked domain
   - Bucket Policy
 
+config.toml
+
+```
+[deploy]
+bucket = 'cfn-artifacts-cruddur'
+region = 'us-east-1'
+stack_name = 'CrdFrontend'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:928597128531:certificate/d18c0598-4110-445f-8da4-90cba4d0ca9c'
+WwwBucketName = 'www.cruddur.pl'
+RootBucketName = 'cruddur.pl'
+```
+
+Deployment script. This script uses cfn-toml to get properties and parameters from config.toml file and execute CloudFormation template.
+
+```
+#! /usr/bin/env bash
+set -e # stop the execution of the script if it fails
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/config.toml"
+echo $CFN_PATH
+
+cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix frontend \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=cruddur-frontend \
+  --parameter-overrides $PARAMETERS \
+  --capabilities CAPABILITY_NAMED_IAM
+```
 
 Parameters
 
