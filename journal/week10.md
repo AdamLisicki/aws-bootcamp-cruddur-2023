@@ -4,6 +4,8 @@
 
 ![cruddur_cfn](https://github.com/AdamLisicki/aws-bootcamp-cruddur-2023/assets/96197101/7bd0c5b1-1037-4e8c-ab25-314c9437942c)
 
+Link to digram created using draw.io : https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=cruddur_cfn.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1stVhcoviyEqIVw_3U2NT_w2vimlr_Z0m%26export%3Ddownload
+
 ## CFN For Networking Layer
 
 The CloudFormation template for networking layer creates:
