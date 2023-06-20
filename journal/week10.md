@@ -1,5 +1,9 @@
 # Week 10 — CloudFormation Part 1
 
+## Diagram
+
+![cruddur_cfn](https://github.com/AdamLisicki/aws-bootcamp-cruddur-2023/assets/96197101/7bd0c5b1-1037-4e8c-ab25-314c9437942c)
+
 ## CFN For Networking Layer
 
 The CloudFormation template for networking layer creates:
