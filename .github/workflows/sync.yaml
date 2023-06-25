@@ -10,6 +10,13 @@ env:
   CLOUDFRONT_DISTRUBTION_ID: E8FPS47AJCWON
   OUTPUT_CHANGESET_PATH: ${{ github.workspace }}/tmp/sync-changeset.json
   S3_BUCKET: cruddur.pl
+  REACT_APP_BACKEND_URL: https://api.cruddur.pl
+  REACT_APP_FRONTEND_URL: https://cruddur.pl
+  REACT_APP_API_GATEWAY_ENDPOINT_URL: https://j7m545n5jb.execute-api.us-east-1.amazonaws.com
+  REACT_APP_AWS_PROJECT_REGION: us-east-1
+  REACT_APP_AWS_COGNITO_REGION: us-east-1
+  REACT_APP_AWS_USER_POOLS_ID: us-east-1_5SN7XhsT0
+  REACT_APP_CLIENT_ID: 4em6p32irpbr10ujcn3svhsdm4
 
 
 on:
