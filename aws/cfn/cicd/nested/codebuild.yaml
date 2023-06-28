@@ -63,6 +63,16 @@ Resources:
         Version: '2012-10-17'
       Path: /
       Policies:
+        - PolicyName: !Sub ${AWS::StackName}S3ArtifactAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - s3:*
+                Effect: Allow
+                Resource:
+                  - !Sub arn:aws:s3:::${ArtifactBucketName}
+                  - !Sub arn:aws:s3:::${ArtifactBucketName}/*
         - PolicyName: !Sub ${AWS::StackName}ECRPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -108,19 +118,7 @@ Resources:
                 Resource:
                   - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroupPath}*
                   - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroupPath}:*
-        - PolicyName: !Sub ${AWS::StackName}S3
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Action:
-                - s3:PutObject
-                - s3:GetObject
-                - s3:GetObjectVersion
-                - s3:GetBucketAcl
-                - s3:GetBucketLocation
-                Effect: Allow
-                Resource:
-                  - !Sub arn:aws:s3:::${ArtifactBucketName}*
+
 
 Outputs:
   CodeBuildProjectName:

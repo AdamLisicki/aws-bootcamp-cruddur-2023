@@ -16,11 +16,16 @@ Parameters:
     Type: String
   ArtifactBucketName:
     Type: String
+  BuildSpec:
+    Type: String
 Resources:
-  CodeBuildBakeImageStack:
+  CodeBuild:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: nested/codebuild.yaml
+      Parameters:
+        ArtifactBucketName: !Ref ArtifactBucketName
+        BuildSpec: !Ref BuildSpec
   CodeStarConnection:
     Type: AWS::CodeStarConnections::Connection
     Properties:
@@ -64,7 +69,7 @@ Resources:
               OutputArtifacts:
                 - Name: ImageDefinition
               Configuration:
-                ProjectName: !GetAtt CodeBuildBakeImageStack.Outputs.CodeBuildProjectName
+                ProjectName: !GetAtt CodeBuild.Outputs.CodeBuildProjectName
                 BatchEnabled: false
         - Name: Deploy
           Actions:
@@ -99,6 +104,16 @@ Resources:
         Version: '2012-10-17'
       Path: /
       Policies:
+        - PolicyName: !Sub ${AWS::StackName}S3ArtifactAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - s3:*
+                Effect: Allow
+                Resource:
+                  - !Sub arn:aws:s3:::${ArtifactBucketName}
+                  - !Sub arn:aws:s3:::${ArtifactBucketName}/*
         - PolicyName: !Sub ${AWS::StackName}EcsDeployPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -159,4 +174,4 @@ Resources:
                     - ':'
                     - !Ref AWS::AccountId
                     - ':project/'
-                    - !GetAtt CodeBuildBakeImageStack.Outputs.CodeBuildProjectName
+                    - !GetAtt CodeBuild.Outputs.CodeBuildProjectName
