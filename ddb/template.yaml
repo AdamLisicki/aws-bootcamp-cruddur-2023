@@ -59,7 +59,7 @@ Resources:
     Properties:
       CodeUri: .
       PackageType: Zip
-      Handler: lambda_handler
+      Handler: lambda_function.lambda_handler
       Runtime: !Ref PythonRuntime
       Role: !GetAtt ExecutionRole.Arn
       MemorySize: !Ref MemorySize
