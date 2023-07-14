@@ -37,7 +37,7 @@ export default function SignupPage() {
       console.log(user);
       window.location.href = `/confirm?email=${email}`
     } catch (error) {
-        setErrors(errors => [...errors, error.message])
+        setErrors([error.message])
     }
     return false
   }
