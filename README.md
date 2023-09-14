@@ -5,15 +5,12 @@
 - Application: Cruddur
 - Cohort: 2023-A1
 
-This is the starting codebase that will be used in the FREE AWS Cloud Project Bootcamp 2023
+Welcome to the repository for my Micro-Blogging Platform. This platform offers the convenience and functionality of a typical micro-blogging platform, like Twitter, with the scalability, reliability, and security of AWS services.
 
 ![Cruddur Graphic](_docs/assets/cruddur-banner.jpg)
 
 ![Cruddur Screenshot](_docs/assets/cruddur-screenshot.png)
 
-## Instructions
-
-At the start of the bootcamp you need to create a new Github Repository from this template.
 
 ## Journaling Homework
 
